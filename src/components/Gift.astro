@@ -1,0 +1,193 @@
+---
+// @ts-nocheck
+// src/components/Gift.astro
+import { UNDANGAN_CONFIG } from '../data/config'
+import OrnamentBackground from './OrnamentBackground.astro'
+
+// Ekstraksi data dari config.js
+const bank1 = UNDANGAN_CONFIG.gifts[0]
+const bank2 = UNDANGAN_CONFIG.gifts[1]
+const qrisRecipientName = UNDANGAN_CONFIG.brideFullName
+const address = `${UNDANGAN_CONFIG.physicalAddress}, ${UNDANGAN_CONFIG.physicalCity}`
+const contact = UNDANGAN_CONFIG.contactNumber
+const fullAddressAndContact = `${address} | Kontak: ${contact}`
+const qrisImageUrl = UNDANGAN_CONFIG.qrisImageUrl
+const qrisFileName = `QRIS-${UNDANGAN_CONFIG.groomName}-${UNDANGAN_CONFIG.brideName}.jpeg`
+---
+
+<!-- SECTION GIFT -->
+<div
+  id="gift"
+  class="angkasa_slide px-6 relative min-h-screen flex flex-col justify-center items-center snap-start"
+  data-section="gift"
+>
+  <OrnamentBackground />
+
+  <div
+    class="blur-card bg-white/30 backdrop-blur-sm rounded-3xl mt-7 h-full w-full flex flex-col justify-center items-center"
+  >
+    <div class="content-layer text-center space-y-6 px-6">
+      <h3
+        data-animation-class="animate__fadeInDown"
+        class="ornament-item animate__slow text-3xl font-judul italic color-accent-2 border-b border-rose-gold pb-2 mb-4 inline-block"
+      >
+        ✤ Kirim Hadiah ✤
+      </h3>
+
+      <p
+        data-animation-class="animate__fadeInUp"
+        class="font-dekor-1 text-[15px] animate__slow ornament-item leading-relaxed"
+      >
+        Doa restu dari anda sudah merupakan karunia yang sangat berarti bagi kami.<br />
+        Namun, jika memberi adalah ungkapan tanda kasih anda,<br /> Anda dapat memberi kado dengan pilihan
+        dibawah ini.
+      </p>
+
+      <button
+        data-animation-class="animate__fadeInUp"
+        onclick="openModal('modal-digital')"
+        class="ornament-item inline-block w-2xs px-10 py-3 text-sm font-bold color-accent-2 uppercase duration-300 rounded-full shadow-inner border border-accent mx-auto animate__delay-1s"
+      >
+        <i class="fas fa-money-bill-transfer mr-2"></i> Transfer Bank
+      </button>
+
+      <button
+        data-animation-class="animate__fadeInUp"
+        onclick="openModal('modal-qris')"
+        class="ornament-item inline-block w-2xs px-10 py-3 text-sm font-bold color-accent-2 uppercase duration-300 rounded-full shadow-inner border border-accent mx-auto hover:bg-white/10 animate__delay-2s"
+      >
+        <i class="fas fa-qrcode mr-2"></i> Pembayaran QRIS
+      </button>
+
+      <button
+        data-animation-class="animate__fadeInUp"
+        onclick="openModal('modal-fisik')"
+        class="ornament-item inline-block w-2xs px-10 py-3 text-sm font-bold color-accent-2 uppercase duration-300 rounded-full shadow-inner border border-accent mx-auto animate__delay-3s"
+      >
+        <i class="fas fa-gift mr-2"></i> Kirim Kado Fisik
+      </button>
+    </div>
+  </div>
+</div>
+
+<div
+  id="modal-digital"
+  class="modal-backdrop hidden fixed inset-0 z-[100] flex items-center justify-center p-4 bg-white/30 backdrop-blur-md transition-opacity duration-300 opacity-0"
+>
+  <div
+    class="modal-content w-full max-w-xs bg-white rounded-2xl shadow-2xl transform scale-95 transition-transform duration-300"
+  >
+    <div class="p-6 text-center">
+      <h4 class="text-xl font-serif-elegant font-bold text-rose-gold mb-4">Transfer Bank</h4>
+
+      <div class="space-y-4 pt-4">
+        <h5 class="text-lg font-bold text-color-base border-b border-rose-gold/50 pb-2">
+          Detail Rekening
+        </h5>
+
+        <div class="p-3 bg-gray-100 rounded-md border border-gray-200">
+          <p id="bank-name-1" class="text-sm font-bold text-color-base">{bank1.bank}</p>
+          <p id="bank-recipient-1" class="text-xs">A/N: {bank1.name}</p>
+          <p id="bank-account-1" class="text-lg font-bold text-gray-800 my-1">{bank1.number}</p>
+          <button
+            id="copy-bank-1-btn"
+            onclick={`copyAndClose('${bank1.number}', 'copy-bank-1-btn', 'modal-digital')`}
+            class="mt-2 px-3 py-1 text-xs font-semibold text-btn
+            btn-utama rounded hover:bg-rose-gold/90 transition duration-150"
+          >
+            <i class="fas fa-copy mr-1"></i> Salin & Tutup
+          </button>
+        </div>
+
+        <div class="p-3 bg-gray-100 rounded-md border border-gray-200">
+          <p id="bank-name-2" class="text-sm font-bold text-color-base">{bank2.bank}</p>
+          <p id="bank-recipient-2" class="text-xs">A/N: {bank2.name}</p>
+          <p id="bank-account-2" class="text-lg font-bold text-gray-800 my-1">{bank2.number}</p>
+          <button
+            id="copy-bank-2-btn"
+            onclick={`copyAndClose('${bank2.number}', 'copy-bank-2-btn', 'modal-digital')`}
+            class="mt-2 px-3 py-1 text-xs font-semibold text-btn btn-utama rounded hover:bg-rose-gold/90 transition duration-150"
+          >
+            <i class="fas fa-copy mr-1"></i> Salin & Tutup
+          </button>
+        </div>
+      </div>
+
+      <button onclick="closeModal('modal-digital')" class="mt-6 text-sm hover:">
+        Tutup Daftar Rekening
+      </button>
+    </div>
+  </div>
+</div>
+
+<div
+  id="modal-qris"
+  class="modal-backdrop hidden fixed inset-0 z-[100] flex items-center justify-center p-4 bg-white/30 backdrop-blur-md transition-opacity duration-300 opacity-0"
+>
+  <div
+    class="modal-content w-full max-w-xs bg-white rounded-2xl shadow-2xl transform scale-95 transition-transform duration-300"
+  >
+    <div class="p-6 text-center">
+      <h4 class="text-xl font-serif-elegant font-bold text-rose-gold mb-4">Pembayaran QRIS</h4>
+
+      <p class="text-sm italic mb-4">Pindai kode di bawah dari aplikasi pembayaran Anda.</p>
+
+      <div class="p-4 bg-gray-100 rounded-md border border-gray-200">
+        <img
+          src={qrisImageUrl}
+          id="qris-image"
+          onerror="this.src='https://placehold.co/200x200/2D3A50/C6915A?text=QRIS'"
+          alt="QRIS Code"
+          class="w-53 h-53 mx-auto rounded-md shadow-md"
+        />
+        <p class="text-sm mt-3 font-semibold">A/N: {qrisRecipientName}</p>
+      </div>
+
+      <a
+        href={qrisImageUrl}
+        download={qrisFileName}
+        class="inline-block px-4 py-2 mt-5 text-sm font-bold btn-utama text-btn uppercase transition duration-300 rounded-2xl shadow-md"
+      >
+        <i class="fas fa-download mr-2"></i> Download Gambar QRIS
+      </a>
+
+      <button onclick="closeModal('modal-qris')" class="mt-6 text-sm hover: block mx-auto">
+        Tutup QRIS
+      </button>
+    </div>
+  </div>
+</div>
+
+<div
+  id="modal-fisik"
+  class="modal-backdrop hidden fixed inset-0 z-[100] flex items-center justify-center p-4 bg-white/30 backdrop-blur-md transition-opacity duration-300 opacity-0"
+>
+  <div
+    class="modal-content w-full max-w-xs bg-white rounded-2xl shadow-2xl transform scale-95 transition-transform duration-300"
+  >
+    <div class="p-6 text-center">
+      <div class="p-3 bg-gray-100 rounded-md border border-gray-200 text-left space-y-2">
+        <p id="alamat-recipient-display" class="text-sm font-bold text-color-base">
+          Penerima: {qrisRecipientName}
+        </p>
+        <p id="alamat-detail-display" class="text-sm text-gray-800">
+          {address}
+        </p>
+        <p id="alamat-contact-display" class="text-sm text-gray-800">
+          Nomor Kontak: {contact}
+        </p>
+      </div>
+
+      <button
+        id="alamat-fisik-btn"
+        onclick={`copyToClipboard('${fullAddressAndContact}', 'alamat-fisik-btn')`}
+        class="mt-5 px-4 py-2 text-sm font-bold text-btn btn-utama rounded-2xl hover:bg-navy-modern/90 transition duration-150"
+      >
+        <i class="fas fa-copy mr-2"></i> Salin Alamat Pengiriman
+      </button>
+      <button onclick="closeModal('modal-fisik')" class="mt-6 text-sm hover: block mx-auto">
+        Tutup Kado
+      </button>
+    </div>
+  </div>
+</div>

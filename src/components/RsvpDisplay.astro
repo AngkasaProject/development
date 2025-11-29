@@ -1,0 +1,152 @@
+---
+// src/components/RsvpDisplay.astro (Revisi Akhir Race Condition)
+import { UNDANGAN_CONFIG } from '../data/config.js'
+const { brideName, groomName } = UNDANGAN_CONFIG
+---
+
+<div class="bg-gray-800 p-6 rounded-xl shadow-lg h-full">
+  <h3 class="text-xl font-medium mb-4 text-accent">Data Tamu & RSVP Realtime</h3>
+
+  <div class="space-y-4">
+    <div class="bg-gray-700 p-3 rounded-lg">
+      <h4 class="font-semibold text-lg mb-2">Statistik Kehadiran</h4>
+      <div id="rsvp-stats" class="text-sm">
+        <div class="flex justify-between py-1 border-b border-gray-600">
+          <span>Total Respon:</span>
+          <span id="total-respon" class="font-bold">0</span>
+        </div>
+        <div class="flex justify-between py-1 border-b border-gray-600">
+          <span class="text-green-400">Hadir (Status 'Hadir'):</span>
+          <span id="total-hadir" class="font-bold text-green-400">0</span>
+        </div>
+        <div class="flex justify-between py-1 border-b border-gray-600">
+          <span class="text-red-400">Tidak Hadir (Status 'Tidak Hadir'):</span>
+          <span id="total-tidak-hadir" class="font-bold text-red-400">0</span>
+        </div>
+        <div class="flex justify-between py-1 pt-2">
+          <span class="text-yellow-400">Pesan/Ucapan:</span>
+          <span id="total-pesan" class="font-bold text-yellow-400">0</span>
+        </div>
+      </div>
+    </div>
+
+    <h4 class="font-semibold text-lg pt-2">Daftar Respon Tamu</h4>
+
+    <div id="rsvp-list" class="space-y-2 max-h-96 overflow-y-auto pr-2">
+      <p class="text-gray-400 text-sm text-center py-4">Memuat data dari Firebase...</p>
+    </div>
+  </div>
+</div>
+
+<script>
+  const rsvpListDiv = document.getElementById('rsvp-list')
+
+  // Elemen Statistik
+  const totalResponEl = document.getElementById('total-respon')
+  const totalHadirEl = document.getElementById('total-hadir')
+  const totalTidakHadirEl = document.getElementById('total-tidak-hadir')
+  const totalPesanEl = document.getElementById('total-pesan')
+
+  // Fungsi untuk mendapatkan warna berdasarkan status
+  function getStatusClasses(status) {
+    if (status && status.includes('Hadir')) {
+      return 'bg-green-600/50 text-green-300'
+    }
+    if (status && status.includes('Tidak Hadir')) {
+      return 'bg-red-600/50 text-red-300'
+    }
+    return 'bg-yellow-600/50 text-yellow-300'
+  }
+
+  function renderRsvp(data) {
+    rsvpListDiv.innerHTML = ''
+    let countHadir = 0
+    let countTidakHadir = 0
+    let countRespon = 0
+    let countPesan = 0
+
+    const sortedRsvps = Object.values(data).sort((a, b) => b.timestamp - a.timestamp)
+
+    sortedRsvps.forEach((rsvp) => {
+      countRespon++
+
+      const statusClass = getStatusClasses(rsvp.status)
+      const date = rsvp.timestamp
+        ? new Date(rsvp.timestamp).toLocaleDateString('id-ID', {
+            day: 'numeric',
+            month: 'short',
+            year: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit'
+          })
+        : 'Unknown Date'
+
+      if (rsvp.status && rsvp.status.includes('Hadir')) {
+        countHadir++
+      } else if (rsvp.status && rsvp.status.includes('Tidak Hadir')) {
+        countTidakHadir++
+      }
+
+      if (rsvp.message && rsvp.message.trim() !== '') {
+        countPesan++
+      }
+
+      const rsvpItem = document.createElement('div')
+      rsvpItem.className = 'bg-gray-900 p-3 rounded-lg border-l-4 border-accent'
+      rsvpItem.innerHTML = `
+                <div class="flex justify-between items-start mb-2">
+                    <span class="text-base font-semibold text-white">${rsvp.name || 'Nama Tamu'}</span>
+                    <span class="px-2 py-0.5 text-xs font-semibold rounded ${statusClass}">
+                        ${rsvp.status || 'Belum Respon'}
+                    </span>
+                </div>
+                <p class="text-sm text-gray-400 mb-2">
+                    ${rsvp.message ? rsvp.message : '— Tanpa Ucapan —'}
+                </p>
+                <div class="flex justify-between text-xs text-gray-500">
+                    <span>👥 Jumlah: ${rsvp.count || 1} orang</span>
+                    <span>🕒 ${date}</span>
+                </div>
+            `
+      rsvpListDiv.appendChild(rsvpItem)
+    })
+
+    totalResponEl.textContent = countRespon
+    totalHadirEl.textContent = countHadir
+    totalTidakHadirEl.textContent = countTidakHadir
+    totalPesanEl.textContent = countPesan
+  }
+
+  function connectToFirebase() {
+    const db = window.db
+
+    if (typeof db !== 'undefined') {
+      db.ref('rsvp')
+        .orderByChild('timestamp')
+        .on(
+          'value',
+          (snapshot) => {
+            const data = snapshot.val() || {}
+            renderRsvp(data)
+          },
+          (error) => {
+            console.error('Firebase Read Error:', error)
+            rsvpListDiv.innerHTML =
+              '<p class="text-red-400 text-center py-4">Gagal memuat data dari Firebase. Cek koneksi & aturan Realtime DB.</p>'
+          }
+        )
+    } else {
+      console.error('FIREBASE INIT FAILED: window.db is not set. Trying again in 500ms.')
+      setTimeout(connectToFirebase, 500)
+    }
+  }
+
+  // --- MEMULAI KONEKSI ---
+  // Pastikan DOM sudah dimuat (Walaupun script module berjalan setelahnya)
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', connectToFirebase)
+  } else {
+    // Jika DOM sudah siap (most common case di sini), panggil langsung.
+    connectToFirebase()
+  }
+</script>

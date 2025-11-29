@@ -1,0 +1,13 @@
+// tsconfig.json (Diperbaiki untuk Alias Path)
+{
+  "extends": "astro/tsconfigs/strict",
+  "include": [".astro/types.d.ts", "**/*"],
+  "exclude": ["dist"],
+  "compilerOptions": {
+    // <-- TAMBAHKAN BAGIAN INI
+    "baseUrl": ".",
+    "paths": {
+      "~/*": ["src/*"] // <-- Definisi: "~" berarti folder "src/"
+    }
+  }
+}

@@ -1,0 +1,634 @@
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('/themes/fonts/java/style.css');
+@import url('/themes/fonts/laraboyok/style.css');
+
+@import 'tailwindcss';
+
+/* ====================================================================
+   2. ROOT VARIABLES (:root)
+   (COLORS, Z-INDEX, FONTS)
+   ==================================================================== */
+
+:root {
+  /* --- COLORS --- */
+  --inv-bg: #f7f7f7;
+  --inv-base: #49312b;
+  --inv-accent: #b88821;
+  --inv-accent2: #c6915a;
+  --color-text-default: #49312b;
+  --inv-border: #c6915a;
+  --menu-bg: #cdd7e2;
+  --menu-inactive: #265875;
+  --menu-active: #265875;
+  --btn-color: #ffffff;
+
+  /* --- Z-INDEX --- */
+  --z-index-cover-content: 500;
+  --z-index-overlay: 101;
+
+  /* --- FONTS --- */
+  --font-defaut: 'Inter', sans-serif;
+  --font-dekor-1: 'Open Sans', sans-serif;
+  --font-dekor-3: 'Lora', serif;
+  --font-accent: 'Laraboyok', serif;
+  --font-latin: 'Javassoul', serif;
+  --font-latin2: 'Great Vibes', cursive;
+}
+
+/* ====================================================================
+   3. FONT & TEXT UTILITY CLASSES
+   ==================================================================== */
+
+.font-default {
+  font-family: var(--font-default);
+  font-optical-sizing: auto;
+}
+.font-dekor-1 {
+  font-family: var(--font-dekor-1);
+  font-weight: 400;
+}
+.font-dekor-2 {
+  font-family: var(--font-latin2);
+}
+.font-accent {
+  font-family: var(--font-accent);
+}
+.font-latin-jawa {
+  font-family: var(--font-latin);
+}
+.font-nama {
+  font-family: var(--font-dekor-3);
+  font-weight: 500;
+  font-style: italic;
+}
+.font-judul {
+  font-family: var(--font-dekor-3);
+  font-weight: 500;
+}
+
+/* ====================================================================
+   4. COLOR & BUTTON UTILITY CLASSES
+   (Termasuk Skema Warna dan Tombol Dasar)
+   ==================================================================== */
+
+.color-accent {
+  color: var(--inv-accent2);
+}
+.text-color-base {
+  color: var(--color-text-default);
+}
+.color-accent-2 {
+  color: var(--inv-accent);
+}
+.btn-utama {
+  background-color: var(--inv-accent);
+}
+.text-btn {
+  color: var(--btn-color);
+}
+
+/* ====================================================================
+   5. KEYFRAME DEFINITIONS (ANIMATIONS)
+   ==================================================================== */
+
+@keyframes pulse_shadow {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(17, 24, 39, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 0 10px rgba(17, 24, 39, 0);
+  }
+}
+@keyframes slow-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes sway {
+  0% {
+    transform: rotate(-1.5deg);
+  }
+  50% {
+    transform: rotate(1.5deg);
+  }
+  100% {
+    transform: rotate(-1.5deg);
+  }
+}
+@keyframes sway-reverse {
+  0% {
+    transform: rotate(1.5deg);
+  }
+  50% {
+    transform: rotate(-1.5deg);
+  }
+  100% {
+    transform: rotate(1.5deg);
+  }
+}
+@keyframes scroll-infinity {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-15%);
+  }
+}
+@keyframes float {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+@keyframes wave-left {
+  0% {
+    transform: rotate(-10deg);
+  }
+  100% {
+    transform: rotate(4deg);
+  }
+}
+@keyframes wave-right {
+  0% {
+    transform: rotate(10deg);
+  }
+  100% {
+    transform: rotate(-4deg);
+  }
+}
+@keyframes bounce-dot {
+  0%,
+  100% {
+    transform: translateY(-50%);
+  }
+  50% {
+    transform: translateY(0);
+  }
+}
+
+/* ====================================================================
+   6. ANIMATION UTILITY CLASSES (APPLICATION)
+   ==================================================================== */
+
+.animate-pulse-shadow {
+  animation: pulse_shadow 2s infinite;
+}
+.animate-spin-slow {
+  animation: slow-spin 1.5s linear infinite;
+}
+.animate-bounce-dot {
+  animation: bounce-dot 1s infinite;
+}
+.anim-sway-left {
+  animation: sway 5s ease-in-out infinite;
+  transform-origin: bottom center;
+}
+.anim-float-left {
+  animation: float 4s ease-in-out infinite;
+}
+.anim-sway-right {
+  animation: sway-reverse 5s ease-in-out infinite;
+  transform-origin: bottom center;
+}
+.anim-float-right {
+  animation: float 4s ease-in-out infinite;
+}
+.anim-scroll-infinity {
+  animation: scroll-infinity 5s linear infinite alternate;
+}
+.animate-left img {
+  animation: wave-left 5s ease-in-out infinite alternate;
+}
+.animate-right img {
+  animation: wave-right 5s ease-in-out infinite alternate;
+}
+
+/* Animation Play State Control */
+.anim-sway-left,
+.anim-float-left,
+.anim-sway-right,
+.anim-float-right,
+.anim-scroll-infinity {
+  animation-play-state: paused !important;
+}
+.angkasa_slide.is-active .anim-sway-left,
+.angkasa_slide.is-active .anim-float-left,
+.angkasa_slide.is-active .anim-sway-right,
+.angkasa_slide.is-active .anim-float-right,
+.angkasa_slide.is-active .anim-scroll-infinity {
+  animation-play-state: running !important;
+}
+
+/* ====================================================================
+   7. SCROLL & WRAPPER BEHAVIOR (Global Layout)
+   ==================================================================== */
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, dan Opera */
+}
+.no-scrollbar {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+#fullscreen-container {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+}
+#fullscreen-container:fullscreen {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#mobile-wrapper {
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  z-index: 50;
+  scroll-snap-type: y mandatory;
+  min-height: 100vh;
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding-bottom: 0;
+}
+
+.background-modern1 {
+  background-image: url('/asset/images/bg.webp');
+  background-size: cover;
+  background-position: center;
+}
+
+/* ====================================================================
+   8. SLIDE/SECTION STYLING (angkasa_slide)
+   ==================================================================== */
+.angkasa_slide {
+  position: relative;
+  width: 100%;
+  height: 100svh;
+  overflow: hidden;
+  scroll-snap-align: start;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* fallback jika browser tidak support 100svh */
+@supports (height: 100svh) {
+  .angkasa_slide {
+    height: 100svh !important;
+  }
+}
+
+
+/* ====================================================================
+   9. NAVIGATION (Bottom Bar & Floating Menu)
+   ==================================================================== */
+/* --- Bottom Navbar Bar --- */
+#bottom-navbar {
+  transition:
+    all 0.5s ease-in-out,
+    background-color 0.3s ease,
+    transform 0.5s ease;
+  left: 50%;
+  transform: translateX(-50%);
+  width: fit-content;
+}
+.navbar-bottom {
+  bottom: 1rem;
+  top: auto;
+}
+.nav-item .text-xs {
+  transition:
+  opacity 300ms,
+  height 300ms,
+  margin 300ms;
+  opacity: 1;
+  height: 16px;
+  line-height: 16px;
+  overflow: hidden;
+}
+
+.nav-item:hover .text-xs,
+.nav-item.active-nav-style .text-xs {
+  opacity: 0;
+  height: 0;
+}
+
+.nav-item.active-nav-style {
+  transform: scale(1.5);
+  color: var(--inv-accent);
+}
+
+.nav-item.active-nav-style i {
+  color: var(--inv-accent);
+}
+.nav-item {
+  padding-left: 0.75rem !important;
+  padding-right: 0.75rem !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  margin: 0 !important;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #2d3a50;
+  transition: all 0.2s ease-in-out;
+}
+
+
+.nav-item i {
+  margin-bottom: 2px;
+}
+.nav-item div {
+  line-height: 1;
+}
+
+@media (min-width: 500px) {
+  .floating-action {
+    right: calc(50% - 250px + 20px) !important;
+  }
+}
+
+.floating-action {
+  position: fixed !important;
+  z-index: var(--z-index-overlay) !important;
+  right: 20px !important;
+  bottom: 120px !important;
+}
+
+.btn-float {
+  width: 40px;
+  height: 40px;
+  border-radius: 9999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--inv-accent);
+  border-color: var(--inv-accent);
+  color: var(--btn-color);
+  transition:
+    transform 0.2s,
+    box-shadow 0.2s;
+  cursor: pointer;
+  border: none;
+}
+
+.btn-float:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 10px 15px -3px rgba(0, 0, 0, 0.1),
+    0 4px 6px -4px rgba(0, 0, 0, 0.1);
+}
+.btn-float:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.1);
+}
+
+.bg-blur {
+  background-color: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.blur-card {
+  overflow: hidden;
+  position: relative;
+  z-index: 10;
+  border: 1px solid var(--menu-bg);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.card-cover {
+  position: relative;
+  overflow: hidden;
+  z-index: var(--z-index-cover-content);
+}
+
+.frame {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 80px;
+  left: 0;
+}
+.frame-tl {
+  width: 50%;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.frame-tr {
+  width: 50%;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.frame-bl {
+  width: 50%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
+.frame-br {
+  width: 50%;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+.only-cover {
+  display: none;
+}
+
+.angkasa_cover .only-cover {
+  display: block;
+}
+
+.angkasa_cover .frame::after {
+  display: none;
+}
+
+.modal {
+  background-color: rgba(0, 0, 0, 0.6);
+  transition: opacity 0.3s ease-out;
+}
+.modal-content {
+  transition: transform 0.3s ease-out;
+}
+
+.animated-content {
+  opacity: 0;
+  transform: translateY(20px);
+  transition:
+    opacity 0.6s ease-out,
+    transform 0.6s ease-out;
+}
+
+.angkasa_slide.is-active .animated-content {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.scroll-active-section {
+  height: calc(100vh - 70px);
+  justify-content: center;
+  padding-bottom: 100px;
+}
+
+#cover.scroll-active-section {
+  padding-bottom: 0px;
+  height: calc(100vh - 70px);
+}
+
+.ornamen-bawah {
+  position: absolute;
+  pointer-events: none;
+  z-index: 5;
+}
+.frame-corner {
+  position: absolute;
+  z-index: 6;
+  opacity: 0.9;
+  width: 35%;
+  pointer-events: none;
+}
+
+.content-layer {
+  position: relative;
+  z-index: 501;
+}
+
+/* Styling Mempelai */
+.frame-mempelai {
+  background-image: url('/asset/images/frame-jawa.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 300px;
+  margin: auto;
+}
+.image-container {
+  height: 130px;
+  width: 100px;
+  margin: auto;
+  border: 2px solid #c6915a;
+  border-radius: 50px 50px 0 0;
+  overflow: hidden;
+  transform: translateY(-14px);
+}
+
+/* 3. STYLING KHUSUS UNTUK TANGGAL & HARI 
+*/
+.p-8 .animate__zoomIn .font-latin {
+  /* Gaya untuk Hari: "Minggu" */
+  font-weight: 500; /* Medium bold */
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #2d3a50; /* Warna gelap */
+}
+
+.p-8 .animate__zoomIn .font-accent {
+  font-weight: 700;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.p-8 .editable {
+  color: #555;
+}
+
+.p-8 .editable.font-weight-bold {
+  font-weight: 700 !important;
+  text-transform: uppercase;
+}
+
+
+.navbar-top {
+  top: 2rem;
+  bottom: auto;
+  box-shadow:
+    0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -2px rgba(0, 0, 0, 0.06);
+  opacity: 0;
+}
+
+.active-nav-style {
+  color: #c6915a; /* Warna accent */
+  font-weight: 700;
+}
+
+#credit-footer {
+  transition: opacity 0.5s ease-in-out;
+}
+
+
+
+.map-with-accent-frame {
+  box-shadow: 0 0 0 4px #c6915a;
+  border-radius: 0.5rem;
+  transition: box-shadow 0.3s ease-in-out;
+}
+
+.map-with-accent-frame:hover {
+  box-shadow: 0 0 0 6px #c6915a;
+}
+
+.ornament-item {
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.is-active-section .ornament-item {
+  opacity: 1;
+}
+
+#cover-section-overlay {
+  transition:
+  transform 1.2s cubic-bezier(0.65, 0.05, 0.36, 1),
+  opacity 0.4s ease-out;
+  width: 100vw;
+  height: 100vh;
+}
+.cover-fade-out {
+  opacity: 0;
+}
+
+.animate__zoomIn {
+  opacity: 1;
+}
+
+@media (min-width: 421px) {
+  #mobile-wrapper {
+    height: 100%;
+  }
+  .content-layer .font-accent.absolute {
+    font-size: 40px !important;
+  }
+
+  .content-layer .font-accent.absolute:nth-child(1) {
+    transform: translate(-10px, 0px) !important;
+  }
+  .content-layer .font-accent.absolute:nth-child(2) {
+    transform: translate(10px, 20px) !important;
+  }
+
+  #bottom-navbar {
+    max-width: 372px !important;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}
+
+

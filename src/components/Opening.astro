@@ -1,0 +1,218 @@
+---
+import { UNDANGAN_CONFIG } from '../data/config'
+import OrnamentBackground from './OrnamentBackground.astro'
+
+const {
+  brideName,
+  groomName,
+  countdownTargetDate
+} = UNDANGAN_CONFIG
+
+const brideInitial = brideName[0]
+const groomInitial = groomName[0]
+---
+<!-- ============================================================
+     LAYER 1 — FULLSCREEN (angkasa_slide)
+     Ornament ditempatkan di layer ini
+============================================================ -->
+<div
+  id="opening"
+  class="angkasa_slide snap-start relative flex justify-center items-center overflow-hidden"
+  data-section="opening"
+>
+  <!-- Ornament full-layer -->
+  <OrnamentBackground />
+
+  <!-- Gambar manten -->
+  <div
+    data-animation-class="animate__zoomIn"
+    class="absolute bottom-2 left-1/2 -translate-x-1/2 z-30 ornament-item animate__slower w-[60vw] max-w-[200px] h-auto"
+  >
+    <img
+      src="/asset/images/manten.webp"
+      class="w-full h-auto object-contain"
+      onerror="this.src='https://placehold.co/300x200/C6915A/fff?text=MANTEN'"
+    />
+  </div>
+
+  <div
+    class="angkasa_inner relative w-full h-[calc(100%-80px)]
+           flex justify-center items-center">
+  
+    <div
+      class="blur-card w-full max-w-[540px] h-full
+  mx-4
+  bg-white/30 backdrop-blur-sm border border-(--inv-border)
+  rounded-3xl shadow-lg
+  flex flex-col justify-center items-center
+  px-4 py-6 relative z-20"
+    >
+
+   <div class="content-layer text-center m-3 sm:m-5 font-dekor-1 w-full max-w-[420px] mx-auto">
+      <div
+        data-animation-class="animate__fadeInDown"
+        class="text-center text-lg mb-4 ornament-item animate__slower"
+      >
+        <p class="font-judul italic color-accent">✤ Assalamualaikum Wr.Wb ✤</p>
+        <p
+          data-animation-class="animate__fadeInDown"
+          class="ornament-item mt-2 text-[15px] mb-6 animate__slower"
+        >
+          Tanpa mengurangi rasa hormat, Kami bermaksud Mengundang Bapak/Ibu/Saudara/i, Untuk Hadir
+          Dalam Acara Pernikahan kami
+        </p>
+      </div>
+
+      <div
+        data-animation-class="animate__zoomIn"
+        class="flex items-center justify-center mb-4 mx-auto relative ornament-item animate__slower"
+        style="
+                  height: 112px;
+                  width: 65px;
+                  background-image: url('/asset/images/way-kecil.png');
+                  background-repeat: no-repeat;
+                  background-size: contain;
+                  background-position: center;
+                "
+      >
+        <div
+          class="text-left font-accent absolute"
+          style="
+                    font-size: 55px;
+                    line-height: 1;
+                    transform: translate(-15px, 0px);
+                  "
+        >
+          {brideInitial}
+        </div>
+        <div
+          class="text-right font-accent absolute"
+          style="
+                    font-size: 55px;
+                    line-height: 1;
+                    transform: translate(15px, 25px);
+                  "
+        >
+          {groomInitial}
+        </div>
+      </div>
+
+      <div class="w-full flex items-center justify-center mt-2">
+        <div
+          data-animation-class="animate__fadeInLeft"
+          class="text-center ornament-item animate__slower"
+          style="width: 40%"
+        >
+          <div class="color-accent font-accent text-[40px] sm:text-[55px]" style="line-height: 1">
+            {brideName}
+          </div>
+        </div>
+
+        <div
+          data-animation-class="animate__fadeInUp"
+          class="px-2 font-accent text-5xl ornament-item animate__slower"
+        >
+          &amp;
+        </div>
+
+        <div
+          data-animation-class="animate__fadeInRight"
+          class="text-center ornament-item animate__slower"
+          style="width: 40%"
+          data-aos="fade-left"
+          data-aos-delay="1100"
+        >
+          <div class="color-accent font-accent text-[40px] sm:text-[55px]" style="line-height: 1">
+            {groomName}
+          </div>
+        </div>
+      </div>
+      <!-- COUNTDOWN TIMER -->
+      <div
+        id="opening-countdown-display"
+        data-animation-class="animate__fadeInUp"
+        class="mb-10 mt-4 ornament-item animate__slower w-full"
+        data-countdown-target={countdownTargetDate}
+      >
+        <div
+          id="countdown-display-opening"
+          class="grid grid-cols-4 items-center justify-center gap-2 text-center font-dekor-1 max-w-xs mx-auto"
+        >
+          <!-- Hari (Days) -->
+          <div class="bg-white/10 backdrop-blur-md px-1 sm:px-3 py-2 rounded-lg shadow-lg flex-1">
+            <div id="days-opening" class="text-xl sm:text-2xl font-bold color-accent leading-none">
+              00
+            </div>
+            <div class="text-xs color-accent opacity-80 mt-1">Hari</div>
+          </div>
+
+          <!-- Jam (Hours) -->
+          <div class="bg-white/10 backdrop-blur-md px-1 sm:px-3 py-2 rounded-lg shadow-lg flex-1">
+            <div id="hours-opening" class="text-xl sm:text-2xl font-bold color-accent leading-none">
+              00
+            </div>
+            <div class="text-xs color-accent opacity-80 mt-1">Jam</div>
+          </div>
+
+          <!-- Menit (Minutes) -->
+          <div class="bg-white/10 backdrop-blur-md px-1 sm:px-3 py-2 rounded-lg shadow-lg flex-1">
+            <div
+              id="minutes-opening"
+              class="text-xl sm:text-2xl font-bold color-accent leading-none"
+            >
+              00
+            </div>
+            <div class="text-xs color-accent opacity-80 mt-1">Menit</div>
+          </div>
+
+          <!-- Detik (Seconds) - MENGHAPUS 'hidden sm:block' AGAR TAMPIL DI MOBILE -->
+          <div class="bg-white/10 backdrop-blur-md px-1 sm:px-3 py-2 rounded-lg shadow-lg flex-1">
+            <div
+              id="seconds-opening"
+              class="text-xl sm:text-2xl font-bold color-accent leading-none"
+            >
+              00
+            </div>
+            <div class="text-xs color-accent opacity-80 mt-1">Detik</div>
+          </div>
+        </div>
+      </div>
+      <!-- AKHIR COUNTDOWN TIMER -->
+    </div>
+  </div>
+
+    </div>
+  </div>
+
+  <!-- COUNTDOWN SCRIPT -->
+  <script is:inline>
+    function initializeOpeningCountdown() {
+      const box = document.getElementById('opening-countdown-display')
+      if (!box) return
+
+      const target = new Date(box.dataset.countdownTarget).getTime()
+
+      const d = document.getElementById('days-opening')
+      const h = document.getElementById('hours-opening')
+      const m = document.getElementById('minutes-opening')
+      const s = document.getElementById('seconds-opening')
+
+      function tick() {
+        const now = Date.now()
+        const diff = target - now
+        if (diff < 0) return
+
+        d.textContent = String(Math.floor(diff/86400000)).padStart(2,'0')
+        h.textContent = String(Math.floor((diff/3600000)%24)).padStart(2,'0')
+        m.textContent = String(Math.floor((diff/60000)%60)).padStart(2,'0')
+        s.textContent = String(Math.floor((diff/1000)%60)).padStart(2,'0')
+      }
+
+      tick()
+      setInterval(tick, 1000)
+    }
+
+    initializeOpeningCountdown()
+  </script>
+
+</div>

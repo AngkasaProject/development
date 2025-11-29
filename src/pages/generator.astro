@@ -1,0 +1,20 @@
+---
+// src/pages/generator.astro
+import GeneratorLayout from '../layouts/GeneratorLayout.astro'
+import LinkGenerator from '../components/LinkGenerator.astro'
+import { UNDANGAN_CONFIG } from '../data/config'
+const pageTitle = `ADMIN - Link Generator | ${UNDANGAN_CONFIG.brideName} & ${UNDANGAN_CONFIG.groomName}`
+const brideSlug = UNDANGAN_CONFIG.brideName.toLowerCase().split(' ')[0]
+const groomSlug = UNDANGAN_CONFIG.groomName.toLowerCase().split(' ')[0]
+const urlSlug = `${brideSlug}-${groomSlug}`
+---
+
+<GeneratorLayout title={pageTitle}>
+  <main class="min-h-screen p-4 sm:p-8">
+    <LinkGenerator
+      slug={urlSlug}
+      brideName={UNDANGAN_CONFIG.brideName}
+      groomName={UNDANGAN_CONFIG.groomName}
+    />
+  </main>
+</GeneratorLayout>

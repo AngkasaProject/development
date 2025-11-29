@@ -1,0 +1,483 @@
+---
+// src/components/LinkGenerator.astro
+const { slug, brideName, groomName } = Astro.props
+
+const defaultBaseUrl = Astro.url.origin.replace('/generator', '')
+
+const whatsappTemplate = `Assalamualaikum / Halo *[NAMA_TAMU]*
+
+Dengan hormat,
+
+Dengan penuh kebahagiaan,
+kami mengundang Bapak/Ibu/Saudara/i
+untuk hadir pada acara pernikahan kami.
+
+Silakan buka undangan digital pada tautan berikut:
+[LINK_UNDANGAN]
+
+Merupakan suatu kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan untuk hadir dan memberikan doa restu.✨
+
+Mohon konfirmasi kehadiran Anda. Terima kasih.
+
+_Mohon maaf perihal undangan hanya dibagikan melalui pesan ini_
+
+Salam hangat,
+${brideName} & ${groomName}`
+---
+
+<style>
+  /* Variabel CSS & Styling Dasar (Dark Mode) */
+  :root {
+    --card: #0f1724;
+    --muted: #9aa4b2;
+    --accent: #d1b09b;
+    --accent-600: #b89374;
+    --success: #16a34a;
+  }
+  html,
+  body {
+    /* Pastikan body dan html tidak membatasi scroll (penting untuk layout) */
+    height: auto;
+    min-height: 100vh;
+    font-family:
+      Inter,
+      system-ui,
+      -apple-system,
+      Segoe UI,
+      Roboto,
+      Arial;
+    background: linear-gradient(180deg, #05060a 0%, #071026 100%);
+    color: #e6eef8;
+  }
+  .card {
+    box-shadow:
+      0 6px 20px rgba(3, 7, 18, 0.7),
+      0 2px 6px rgba(2, 6, 12, 0.6);
+  }
+  .btn-primary {
+    background-image: linear-gradient(90deg, var(--accent), var(--accent-600));
+  }
+  .focus-ring:focus {
+    outline: 3px solid rgba(209, 176, 155, 0.18);
+    outline-offset: 2px;
+  }
+  textarea,
+  input {
+    color: #e6eef8;
+  }
+  textarea[readonly],
+  input[readonly] {
+    background: transparent;
+  }
+</style>
+
+<main
+  class="max-w-2xl w-full mx-auto card bg-[color:var(--card)] rounded-2xl p-6 md:p-10 border border-transparent"
+  role="main"
+>
+  <header class="flex items-center gap-4 mb-6">
+    <div
+      class="rounded-full bg-gradient-to-br from-[#112033] to-[#0b1626] p-3 flex items-center justify-center text-2xl"
+    >
+      <i class="fas fa-ring text-[color:var(--accent)]"></i>
+    </div>
+    <div>
+      <h1 class="text-2xl md:text-3xl font-semibold">Pembuat Tautan Undangan</h1>
+      <p class="text-sm text-[color:var(--muted)] mt-1">
+        Untuk undangan pernikahan — buat tautan per nama & share cepat ke WhatsApp
+      </p>
+    </div>
+  </header>
+
+  <section class="space-y-6">
+    <div>
+      <label for="base-url" class="text-sm font-medium text-[color:var(--muted)]">
+        1. URL Dasar (Alamat Undangan Anda)
+      </label>
+      <input
+        id="base-url"
+        type="url"
+        inputmode="url"
+        class="mt-2 w-full p-3 bg-transparent border border-gray-700 rounded-lg focus-ring"
+        placeholder="Misal: https://nama-proyek-anda.vercel.app/"
+        value={defaultBaseUrl}
+      />
+    </div>
+
+    <div>
+      <label for="guest-name" class="text-sm font-medium text-[color:var(--muted)]">
+        2. Masukkan Nama Tamu
+      </label>
+      <input
+        id="guest-name"
+        type="text"
+        class="mt-2 w-full p-3 bg-transparent border border-gray-700 rounded-lg focus-ring"
+        placeholder="Contoh: Keluarga Besar Budi Wijaya"
+      />
+    </div>
+
+    <input id="slug" type="hidden" value={slug} />
+
+    <div>
+      <label for="bride-groom" class="text-sm font-medium text-[color:var(--muted)]">
+        3. Nama Mempelai
+      </label>
+      <input
+        id="bride-groom"
+        type="text"
+        class="mt-2 w-full p-3 bg-transparent border border-gray-700 rounded-lg focus-ring"
+        placeholder="Contoh: Budi & Sari"
+        value={`${brideName} & ${groomName}`}
+      />
+    </div>
+
+    <div>
+      <label for="wa-template" class="text-sm font-medium text-[color:var(--muted)]">
+        4. Template Pesan WhatsApp (bisa diedit)
+      </label>
+      <textarea
+        id="wa-template"
+        rows="6"
+        class="mt-2 w-full max-h-80 p-3 bg-transparent border border-gray-700 rounded-lg focus-ring text-sm"
+      >
+        {whatsappTemplate}</textarea
+      >
+
+      <p class="text-xs text-[color:var(--muted)] mt-2">
+        Gunakan <code>[NAMA_TAMU]</code>, <code>[LINK_UNDANGAN]</code>, dan
+        <code>[COUPLE]</code> sebagai placeholder.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+      <button
+        id="generate-button"
+        class="btn-primary text-black font-semibold py-3 px-4 rounded-lg shadow-sm hover:opacity-95 focus-ring flex items-center justify-center gap-2"
+      >
+        <i class="fas fa-magic"></i> Buat Tautan Undangan
+      </button>
+
+      <button
+        id="save-template"
+        class="border border-gray-700 text-[color:var(--accent)] font-semibold py-3 px-4 rounded-lg hover:bg-[rgba(209,176,155,0.04)] focus-ring flex items-center justify-center gap-2"
+      >
+        <i class="fas fa-save"></i> Simpan Template
+      </button>
+    </div>
+  </section>
+</main>
+
+<div
+  id="result-modal"
+  class="fixed inset-0 z-[100] hidden flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm"
+>
+  <div
+    id="result-container-modal"
+    class="bg-[color:var(--card)] w-full max-w-lg rounded-xl shadow-2xl p-6 md:p-8 transform scale-95 transition-all duration-300 relative"
+  >
+    <button
+      id="modal-close-button"
+      class="absolute top-3 right-3 text-[color:var(--muted)] hover:text-white transition"
+      aria-label="Tutup Modal"
+    >
+      <i class="fas fa-times text-xl"></i>
+    </button>
+
+    <h3 class="text-lg font-medium mb-3 text-white">Tautan Siap:</h3>
+
+    <label class="text-sm text-[color:var(--muted)]">Tautan yang dihasilkan</label>
+
+    <textarea
+      id="generated-link"
+      readonly
+      rows="2"
+      class="w-full p-3 bg-transparent border border-gray-700 rounded-lg text-sm text-[color:var(--accent)]"
+    ></textarea>
+
+    <div class="flex gap-3 mt-3">
+      <button
+        id="copy-button"
+        class="w-1/2 bg-[color:var(--success)] hover:opacity-95 font-medium py-2 px-3 rounded-lg focus-ring text-black flex items-center justify-center gap-2"
+      >
+        <i class="fas fa-copy"></i> Salin Tautan
+      </button>
+
+      <button
+        id="open-button"
+        class="w-1/2 border border-gray-700 text-[color:var(--accent)] py-2 px-3 rounded-lg hover:bg-[rgba(209,176,155,0.04)] focus-ring flex items-center justify-center gap-2"
+      >
+        <i class="fas fa-external-link-alt"></i> Buka Tautan
+      </button>
+    </div>
+
+    <div class="mt-4 border-t border-gray-700 pt-4">
+      <label class="text-sm text-[color:var(--muted)]">Template Pesan WhatsApp (Preview)</label>
+
+      <textarea
+        id="wa-template-preview"
+        rows="6"
+        class="mt-2 w-full p-3 bg-transparent border border-gray-700 rounded-lg text-sm"
+        readonly></textarea>
+
+      <div class="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-3">
+        <button
+          id="wa-share-button"
+          class="bg-[#25D366] hover:opacity-95 text-black font-semibold py-2 px-4 rounded-lg flex items-center justify-center gap-2 focus-ring"
+        >
+          <i class="fab fa-whatsapp"></i> Share ke WhatsApp
+        </button>
+
+        <button
+          id="wa-copy-message-button"
+          class="border border-gray-700 text-[color:var(--accent)] py-2 px-4 rounded-lg hover:bg-[rgba(209,176,155,0.04)] focus-ring flex items-center justify-center gap-2"
+        >
+          <i class="fas fa-comment-dots"></i> Salin Pesan
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div
+  id="toast-notification"
+  class="fixed top-0 left-0 right-0 py-4 px-6 shadow-xl text-white opacity-0 transition-opacity duration-500 z-[110] pointer-events-none"
+  role="alert"
+>
+  <div class="max-w-xl mx-auto flex items-center space-x-2">
+    <i id="toast-icon" class="fas fa-check-circle text-xl"></i>
+    <span id="toast-message" class="font-semibold"></span>
+  </div>
+</div>
+
+<script>
+  // --- Fungsi Utility ---
+  function showToast(message, type = 'success') {
+    const toast = document.getElementById('toast-notification')
+    const toastMessage = document.getElementById('toast-message')
+    const toastIcon = document.getElementById('toast-icon')
+
+    if (!toast || !toastMessage || !toastIcon) return
+
+    let bgColor = 'bg-green-500'
+    let iconClass = 'fas fa-check-circle'
+
+    if (type === 'error') {
+      bgColor = 'bg-red-500'
+      iconClass = 'fas fa-times-circle'
+    } else if (type === 'info') {
+      bgColor = 'bg-blue-500'
+      iconClass = 'fas fa-info-circle'
+    }
+
+    toast.classList.remove('bg-green-500', 'bg-red-500', 'bg-blue-500')
+    toast.classList.add(bgColor)
+
+    toastMessage.textContent = message
+    toastIcon.className = iconClass + ' text-xl'
+
+    toast.classList.remove('opacity-0', 'pointer-events-none')
+    toast.classList.add('opacity-100')
+
+    setTimeout(() => {
+      toast.classList.remove('opacity-100')
+      toast.classList.add('opacity-0', 'pointer-events-none')
+    }, 4000)
+  }
+
+  async function copyToClipboard(text) {
+    try {
+      if (navigator.clipboard && window.isSecureContext) {
+        await navigator.clipboard.writeText(text)
+        return true
+      }
+      const ta = document.createElement('textarea')
+      ta.value = text
+      ta.style.position = 'absolute'
+      ta.style.left = '-9999px'
+      document.body.appendChild(ta)
+      ta.select()
+      document.execCommand('copy')
+      document.body.removeChild(ta)
+      return true
+    } catch {
+      return false
+    }
+  }
+
+  function slugify(text) {
+    return String(text || '')
+      .toLowerCase()
+      .trim()
+      .normalize('NFKD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/^-+|-+$/g, '')
+  }
+
+  function normalizeBase(url) {
+    return String(url || '')
+      .trim()
+      .replace(/\s+/g, '')
+      .replace(/\/+$/, '')
+  }
+
+  function buildMessage(tpl, name, link, couple) {
+    return tpl
+      .replaceAll('[NAMA_TAMU]', name)
+      .replaceAll('[LINK_UNDANGAN]', link)
+      .replaceAll('[COUPLE]', couple || '')
+  }
+
+  // --- Modal Control ---
+  const resultModal = document.getElementById('result-modal')
+  const resultModalContent = document.getElementById('result-container-modal')
+  const modalCloseButton = document.getElementById('modal-close-button')
+
+  function showResultModal() {
+    resultModal.classList.remove('hidden')
+    // Trigger transition animation
+    setTimeout(() => {
+      resultModalContent.classList.remove('scale-95')
+      resultModalContent.classList.add('scale-100')
+      // Fokuskan pada elemen pertama yang bisa difokus
+      generatedLinkTA.focus()
+    }, 10)
+  }
+
+  function hideResultModal() {
+    resultModalContent.classList.remove('scale-100')
+    resultModalContent.classList.add('scale-95')
+    // Hide after transition
+    setTimeout(() => {
+      resultModal.classList.add('hidden')
+    }, 300)
+  }
+
+  // --- PENGAMBILAN ELEMEN DOM & LOGIC ---
+  const baseUrlInput = document.getElementById('base-url')
+  const guestNameInput = document.getElementById('guest-name')
+  const slugInput = document.getElementById('slug')
+  const brideGroomInput = document.getElementById('bride-groom')
+  const waTemplateInput = document.getElementById('wa-template')
+
+  const generateButton = document.getElementById('generate-button')
+  const saveTemplateButton = document.getElementById('save-template')
+
+  const generatedLinkTA = document.getElementById('generated-link')
+  const waPreview = document.getElementById('wa-template-preview')
+
+  const copyButton = document.getElementById('copy-button')
+  const openButton = document.getElementById('open-button')
+  const waShareButton = document.getElementById('wa-share-button')
+  const waCopyMessageButton = document.getElementById('wa-copy-message-button')
+
+  // Load saved data and set slug
+  try {
+    const savedBase = localStorage.getItem('invite_base_url')
+    if (savedBase) baseUrlInput.value = savedBase
+
+    const savedTemplate = localStorage.getItem('invite_wa_template')
+    if (savedTemplate) waTemplateInput.value = savedTemplate
+  } catch {}
+
+  function generateSlugFromCouple() {
+    const couple = brideGroomInput.value.trim()
+    let s = slugify(couple)
+    if (!s) s = 'undangan-manten'
+    slugInput.value = s
+  }
+
+  // Initial slug generation
+  generateSlugFromCouple()
+  brideGroomInput.addEventListener('input', generateSlugFromCouple)
+
+  // --- EVENT LISTENERS ---
+
+  // 1. GENERATE BUTTON
+  generateButton.addEventListener('click', async () => {
+    const base = normalizeBase(baseUrlInput.value)
+    const guest = guestNameInput.value.trim()
+    const couple = brideGroomInput.value.trim()
+    const template = waTemplateInput.value
+
+    let slug = slugInput.value.trim()
+    if (!slug) slug = 'undangan-manten'
+
+    if (!base || !guest) {
+      showToast('Mohon isi URL Dasar dan Nama Tamu.', 'error')
+      return
+    }
+
+    try {
+      localStorage.setItem('invite_base_url', baseUrlInput.value)
+      localStorage.setItem('invite_wa_template', waTemplateInput.value)
+    } catch {}
+
+    const finalLink = `${base}/${slug}?to=${encodeURIComponent(guest)}`
+    const message = buildMessage(template, guest, finalLink, couple)
+
+    generatedLinkTA.value = finalLink
+    waPreview.value = message
+
+    // Tampilkan Modal
+    showResultModal()
+
+    // Auto-copy dan Notifikasi
+    const ok = await copyToClipboard(finalLink)
+    if (ok) {
+      showToast('Tautan berhasil digenerate & disalin otomatis!', 'success')
+    } else {
+      showToast('Tautan berhasil digenerate, gagal menyalin.', 'info')
+    }
+  })
+
+  // 2. MODAL CLOSING
+  modalCloseButton.addEventListener('click', hideResultModal)
+
+  resultModal.addEventListener('click', (e) => {
+    // Tutup jika klik di backdrop (luar modal content)
+    if (e.target === resultModal) {
+      hideResultModal()
+    }
+  })
+
+  // 3. COPY BUTTON (Inside Modal)
+  copyButton.addEventListener('click', async () => {
+    const ok = await copyToClipboard(generatedLinkTA.value)
+    if (ok) {
+      showToast('Tautan berhasil disalin ke clipboard!', 'success')
+    }
+  })
+
+  // 4. OPEN BUTTON (Inside Modal)
+  openButton.addEventListener('click', () => {
+    window.open(generatedLinkTA.value, '_blank')
+  })
+
+  // 5. WA SHARE BUTTON (Inside Modal)
+  waShareButton.addEventListener('click', () => {
+    const msg = waPreview.value
+    const url = 'https://wa.me/?text=' + encodeURIComponent(msg)
+    window.open(url, '_blank')
+  })
+
+  // 6. WA COPY MESSAGE BUTTON (Inside Modal)
+  waCopyMessageButton.addEventListener('click', async () => {
+    const ok = await copyToClipboard(waPreview.value)
+    if (ok) {
+      showToast('Pesan WhatsApp berhasil disalin!', 'success')
+    }
+  })
+
+  // 7. SAVE TEMPLATE BUTTON
+  saveTemplateButton.addEventListener('click', () => {
+    try {
+      localStorage.setItem('invite_wa_template', waTemplateInput.value)
+      showToast('Template pesan disimpan di browser.', 'success')
+    } catch {
+      showToast('Gagal menyimpan template.', 'error')
+    }
+  })
+
+  guestNameInput.focus()
+</script>

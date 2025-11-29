@@ -1,0 +1,67 @@
+---
+// src/components/Preloader.astro
+import { UNDANGAN_CONFIG } from '../data/config'
+
+// Ambil inisial nama
+const brideInitial = UNDANGAN_CONFIG.brideName[0]
+const groomInitial = UNDANGAN_CONFIG.groomName[0]
+const initials = `${brideInitial} & ${groomInitial}`
+---
+
+<div
+  id="preloader"
+  class="fixed inset-0 z-[200] flex flex-col justify-center items-center
+         bg-gradient-to-br from-white/90 to-gray-100/80
+         backdrop-blur-sm transition-opacity duration-500"
+>
+  <h1
+    id="initials-display"
+    class="font-accent text-5xl text-(--inv-accent) mb-4
+           animate-pulse
+           drop-shadow-lg"
+  >
+    {initials}
+  </h1>
+
+  <p class="mb-8 font-default text-sm text-[var(--inv-base)] tracking-wider">
+    Mohon Menunggu Sebentar...
+  </p>
+
+  <div class="flex space-x-2">
+    <div
+      class="w-2 h-2 bg-[var(--inv-accent)] rounded-full animate-bounce-dot"
+      style="animation-delay: -0.3s;"
+    >
+    </div>
+    <div
+      class="w-2 h-2 bg-[var(--inv-accent)] rounded-full animate-bounce-dot"
+      style="animation-delay: -0.15s;"
+    >
+    </div>
+    <div class="w-2 h-2 bg-[var(--inv-accent)] rounded-full animate-bounce-dot"></div>
+  </div>
+
+  <div class="w-full max-w-xs mx-auto mt-14 mb-8 p-3 rounded-md">
+    <p
+      class="text-xs
+      text-[var(--inv-base)]
+      font-medium
+      flex
+      flex-col
+      items-center
+      text-center"
+    >
+      <i
+        class="fa-solid fa-circle-exclamation
+             text-xl
+             mb-2
+             shrink-0
+             text-[var(--inv-accent)]"
+      ></i>
+
+      <span class="block">
+        Untuk pengalaman tampilan terbaik, gunakan Chrome atau Firefox versi terbaru.
+      </span>
+    </p>
+  </div>
+</div>

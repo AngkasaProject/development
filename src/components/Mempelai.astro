@@ -1,0 +1,91 @@
+---
+// src/components/Mempelai.astro
+import { UNDANGAN_CONFIG } from '../data/config'
+import OrnamentBackground from './OrnamentBackground.astro'
+
+// Ambil data yang diperlukan
+const {
+  brideFullName,
+  brideFatherName,
+  brideMotherName,
+  groomFullName,
+  groomFatherName,
+  groomMotherName
+} = UNDANGAN_CONFIG
+
+// Logika nama orang tua
+const brideParentsDisplay = `Putri dari<br />${brideFatherName ? `Bapak ${brideFatherName}` : 'Bapak [Nama Bapak]'}<br />&amp; Ibu ${brideMotherName ? brideMotherName : '[Nama Ibu]'}`
+const groomParentsDisplay = `Putra dari<br />${groomFatherName ? `Bapak ${groomFatherName}` : 'Bapak [Nama Bapak]'}<br />&amp; Ibu ${groomMotherName ? groomMotherName : '[Nama Ibu]'}`
+---
+
+<!-- SECTION MEMPELAI -->
+<div
+  id="mempelai"
+  class="angkasa_slide px-4 sm:px-6 relative min-h-screen flex flex-col justify-center items-center snap-start"
+  data-section="mempelai"
+>
+  <OrnamentBackground />
+
+  <div
+    class="blur-card bg-white/30 backdrop-blur-sm animated-content rounded-3xl mt-7 h-full w-full flex flex-col justify-center items-center"
+  >
+    <div class="content-layer text-center">
+      <div data-animation-class="animate__fadeInLeft" class="ornament-item mt-4 animate__slower">
+        <div class="frame-mempelai">
+          <div class="image-container">
+            <img
+              src="/asset/images/wanita.webp"
+              onerror="this.src='https://placehold.co/100x130/C6915A/white?text=Wanita'"
+              style="width: 100%; height: 100%; object-fit: cover"
+              alt="Foto Wanita"
+            />
+          </div>
+        </div>
+        <div class="text-center">
+          <div class="text-2xl font-accent color-accent">{brideFullName}</div>
+          <div class="text-sm italic" set:html={brideParentsDisplay} />
+        </div>
+      </div>
+
+      <div
+        data-animation-class="animate__zoomIn"
+        class="text-center ornament-item animate__slower my-6"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="50"
+          height="59.8"
+          class="block mx-auto"
+          style="
+                    overflow: visible;
+                    transform: scale(0.7);
+                    enable-background: new 0 0 50 59.8;
+                  "
+          xml:space="preserve"
+        >
+          <path
+            d="M10.4 54.1c2.6 2.5 5.9 3.8 9.8 3.8 2.7 0 5.1-.6 7.4-1.8 2.3-1.2 3.8-2.6 4.6-4.3.8-1.7 1.2-3.6 1.2-5.7 0-4.2-1.3-7.8-4-10.8-.6-.8-2.1-1.5-4.4-2-1-.3-2-.5-3.2-.6 4-.4 6.5-.2 7.7.5 1.9 1.2 3.4 3 4.6 5.4s2.1 3.6 2.6 3.7l5.2.4c2.6.1 4.5.9 5.7 2.3 1.7 2.1 2.4 5.6 2.2 10.6-1-5.5-2.4-8.5-3.9-9.1-1.6-.6-3-.8-4.2-.8-3 0-5.1 1.7-6.3 5.2-3.3 5.9-8.1 8.8-14.4 8.8-5.3 0-10.2-2-14.5-5.9C2.2 49.9 0 45.3 0 40.2c0-3.2 1.6-6.7 4.9-10.5 3.6-4.2 7.8-6.6 12.6-7.2-3.8-.8-6.8-2.4-9.1-4.9C6.1 15.1 5 12.3 5 9.1c0-2.3 1.1-4.4 3.4-6.3C10.4.9 12.5 0 14.7 0c1 0 2.3.3 4.1 1 2.3.9 3.4 1.9 3.4 3 0 .9-.6 1.4-1.7 1.4-.1 0-.5-.4-1.4-1.3-.8-.8-1.8-1.3-2.9-1.4-1.2-.1-2.4.5-3.6 1.8-1.2 1.4-1.8 2.7-1.8 4.1 0 7.2 5.3 12.1 15.8 14.7 1.4.3 2.1.7 2.1 1.3-1.2-.2-2.5-.3-3.9-.3-5.1 0-9.3 1.1-12.6 3.4-4.2 2.9-6.3 7.2-6.3 13 0 5.9 1.5 10.4 4.5 13.4z"
+            style="fill: #c6915a"></path>
+        </svg>
+      </div>
+
+      <div data-animation-class="animate__fadeInRight" class="ornament-item animate__slower">
+        <div class="text-center mb-8">
+          <div class="text-2xl font-accent color-accent">{groomFullName}</div>
+          <div class="text-sm italic" set:html={groomParentsDisplay} />
+        </div>
+
+        <div class="frame-mempelai mt-30">
+          <div class="image-container">
+            <img
+              src="/asset/images/pria.webp"
+              onerror="this.src='https://placehold.co/100x130/C6915A/white?text=Pria'"
+              style="width: 100%; height: 100%; object-fit: cover"
+              alt="Foto Pria"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,66 @@
+---
+// src/components/Maps.astro
+import { UNDANGAN_CONFIG } from '../data/config'
+import OrnamentBackground from './OrnamentBackground.astro'
+
+// Ambil data yang diperlukan
+const { locationFullAddress, gmapsLink, mapsIframeUrl, locationName } = UNDANGAN_CONFIG
+
+// Mengatur lokasi default untuk ditampilkan
+const mapAddress = locationFullAddress || 'Alamat Belum Ditetapkan'
+---
+
+<div
+  id="maps"
+  class="angkasa_slide px-4 sm:px-6 relative min-h-screen flex flex-col justify-center items-center snap-start"
+  data-section="maps"
+>
+  <OrnamentBackground />
+
+  <div
+    class="blur-card bg-white/30 backdrop-blur-sm animated-content rounded-3xl mt-7 h-full w-full flex flex-col justify-center items-center"
+  >
+    <div class="content-layer text-center px-6">
+      <!-- MAPS WRAPPER -->
+      <div
+        data-animation-class="animate__zoomIn"
+        class="ornament-item animate__slower w-full mx-auto mb-6"
+      >
+        <div
+          class="relative w-full overflow-hidden rounded-2xl border-2 border-(--inv-border) shadow-[0_4px_14px_rgba(0,0,0,0.15)]"
+          style="aspect-ratio: 1 / 1"
+        >
+          <iframe
+            id="maps-iframe"
+            src={mapsIframeUrl}
+            class="absolute inset-0 h-full w-full"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            style="border: 0"></iframe>
+        </div>
+      </div>
+
+      <div data-animation-class="animate__fadeInUp" class="text-center ornament-item animate__slow">
+        <div id="maps-title" class="font-judul italic text-xl color-accent mb-3">
+          {locationName}
+        </div>
+        <div></div>
+
+        <div id="maps-address" class="mb-3 font-dekor-1 text-[15px]">
+          {mapAddress}
+        </div>
+
+        <a
+          data-animation-class="animate__fadeInUp"
+          id="maps-button"
+          href={gmapsLink}
+          target="_blank"
+          class="ornament-item inline-block px-6 py-3 text-sm font-bold color-accent-2 uppercase transition duration-300 rounded-full shadow-inner border border-accent w-60 mx-auto hover:bg-white/10 transform animate__delay-2s"
+        >
+          <i class="fas fa-map-marked-alt mr-2"></i> Buka di Maps
+        </a>
+      </div>
+    </div>
+  </div>
+</div>

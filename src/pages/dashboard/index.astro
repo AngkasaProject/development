@@ -1,0 +1,93 @@
+---
+//@ts-nocheck
+// src/pages/dashboard/index.astro
+import DashboardLayout from '../../layouts/DashboardLayout.astro'
+import LinkGenerator from '../../components/LinkGenerator.astro'
+import RsvpDisplay from '../../components/RsvpDisplay.astro'
+import { UNDANGAN_CONFIG } from '../../data/config'
+const pageTitle = `ADMIN - Link Generator | ${UNDANGAN_CONFIG.brideName} & ${UNDANGAN_CONFIG.groomName}`
+const brideSlug = UNDANGAN_CONFIG.brideName.toLowerCase().split(' ')[0]
+const groomSlug = UNDANGAN_CONFIG.groomName.toLowerCase().split(' ')[0]
+const urlSlug = `${brideSlug}-${groomSlug}`
+// Pastikan path ke komponen di atas benar!
+---
+
+<DashboardLayout title="Dashboard Admin">
+  <div class="p-4 sm:p-8 max-w-7xl mx-auto">
+    <header class="flex justify-between items-center mb-6">
+      <h1 class="text-3xl font-bold text-white">Dashboard Admin</h1>
+      <button
+        onclick="window.logout()"
+        class="bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded-lg transition-colors text-sm"
+      >
+        <i class="fas fa-sign-out-alt mr-1"></i> Logout
+      </button>
+    </header>
+
+    <div class="flex space-x-2 sm:space-x-4 mb-6" role="tablist">
+      <button
+        id="tab-generator"
+        data-target="content-generator"
+        class="tab-btn bg-accent text-gray-900 font-semibold py-2 px-4 rounded-lg shadow-md transition-colors"
+        role="tab"
+        aria-selected="true"
+      >
+        🔗 Generator Link
+      </button>
+      <button
+        id="tab-rsvp"
+        data-target="content-rsvp"
+        class="tab-btn bg-gray-700 hover:bg-gray-600 text-white font-semibold py-2 px-4 rounded-lg transition-colors"
+        role="tab"
+        aria-selected="false"
+      >
+        💬 Data RSVP & Chat
+      </button>
+    </div>
+
+    <div id="content-generator" class="tab-content" role="tabpanel" aria-labelledby="tab-generator">
+      <LinkGenerator
+        slug={urlSlug}
+        brideName={UNDANGAN_CONFIG.brideName}
+        groomName={UNDANGAN_CONFIG.groomName}
+      />
+    </div>
+
+    <div id="content-rsvp" class="tab-content hidden" role="tabpanel" aria-labelledby="tab-rsvp">
+      <RsvpDisplay />
+    </div>
+  </div>
+</DashboardLayout>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const tabs = document.querySelectorAll('.tab-btn')
+    const contents = document.querySelectorAll('.tab-content')
+
+    tabs.forEach((tab) => {
+      tab.addEventListener('click', () => {
+        const targetId = tab.dataset.target
+
+        // 1. Update Tombol Tabs
+        tabs.forEach((t) => {
+          t.classList.remove('bg-accent', 'text-gray-900')
+          t.classList.add('bg-gray-700', 'text-white', 'hover:bg-gray-600')
+          t.setAttribute('aria-selected', 'false')
+        })
+
+        tab.classList.remove('bg-gray-700', 'text-white', 'hover:bg-gray-600')
+        tab.classList.add('bg-accent', 'text-gray-900')
+        tab.setAttribute('aria-selected', 'true')
+
+        // 2. Update Konten
+        contents.forEach((content) => {
+          if (content.id === targetId) {
+            content.classList.remove('hidden')
+          } else {
+            content.classList.add('hidden')
+          }
+        })
+      })
+    })
+  })
+</script>

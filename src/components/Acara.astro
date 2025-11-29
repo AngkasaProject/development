@@ -1,0 +1,107 @@
+---
+// src/components/Acara.astro
+import { UNDANGAN_CONFIG } from '../data/config'
+import OrnamentBackground from './OrnamentBackground.astro'
+
+// Ambil data yang diperlukan
+const { akadDayDisplay, akadDateDisplay, akadLocation, calendarLink } = UNDANGAN_CONFIG
+const akadMulai = UNDANGAN_CONFIG.akadTimeDisplay
+const akadWaktuPenuh = `${akadMulai} - Selesai`
+---
+
+<!-- SECTION ACARA -->
+<div
+  id="acara"
+  class="angkasa_slide px-4 sm:px-6 relative min-h-screen flex flex-col justify-center items-center snap-start"
+  data-section="acara"
+>
+  <OrnamentBackground />
+
+  <div
+    class="blur-card bg-white/30 backdrop-blur-sm animated-content rounded-3xl mt-7 h-full w-full flex flex-col justify-center items-center z-10"
+  >
+    <div class="content-layer text-center">
+      <div data-animation-class="animate__fadeInDown" class="ornament-item animate__slower">
+        <div
+          class=""
+          style="
+                    width: 158px;
+                    height: 89px;
+                    margin: auto;
+                    overflow: hidden;
+                    padding-bottom: 20px;
+                  "
+        >
+          <img
+            src="./asset/images/way-kecil.png"
+            style="width: 100%; height: 100%; object-fit: contain"
+            alt="Ornamen Atas"
+          />
+        </div>
+      </div>
+
+      <div
+        data-animation-class="animate__fadeInDown"
+        class="text-center ornament-item animate__slower"
+      >
+        <div class="font-judul italic color-accent text-lg">✤ Akad Pernikahan ✤</div>
+        <div id="akad-time" class="text-[15px]">{akadWaktuPenuh}</div>
+      </div>
+
+      <div
+        data-animation-class="animate__zoomIn"
+        class="mt-3 text-center ornament-item animate__slower"
+      >
+        <div id="akad-day" class="font-latin-jawa" style="font-size: 50px; line-height: 1.2">
+          {akadDayDisplay}
+        </div>
+        <div
+          id="akad-date"
+          class="color-accent font-accent"
+          style="font-size: 50px; line-height: 1.2"
+        >
+          {akadDateDisplay}
+        </div>
+      </div>
+
+      <div
+        data-animation-class="animate__fadeInUp"
+        class="mt-2 text-center ornament-item animate__slower"
+      >
+        <div class="font-judul italic color-accent text-lg">✤ Kediaman Wanita ✤</div>
+        <div id="akad-location" class="max-w-2xs text-[15px]">
+          {akadLocation}
+        </div>
+      </div>
+
+      <div
+        data-animation-class="animate__fadeInUp"
+        class="mt-3 image- mx-auto ornament-item animate__slower"
+        style="height: auto; width: 130px; overflow: hidden"
+      >
+        <img
+          src="./asset/images/btm-kecil.png"
+          style="width: 100%; height: 100%; object-fit: contain"
+          alt="Ornamen Bawah"
+        />
+      </div>
+
+      <div
+        data-animation-class="animate__fadeInUp"
+        class="mt-8 flex flex-col gap-3 justify-center animated-content ornament-item"
+      >
+        <a
+          data-animation-class="animate__fadeInUp"
+          id="calendar-link"
+          href={calendarLink}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="ornament-item inline-block px-6 py-3 text-sm font-bold color-accent-2 uppercase duration-300 rounded-full shadow-inner border border-accent w-60 mx-auto hover:bg-white/10 transform transition animate__delay-2s"
+          style="text-decoration: none"
+        >
+          <i class="fas fa-calendar-alt mr-2"></i> Pengingat
+        </a>
+      </div>
+    </div>
+  </div>
+</div>

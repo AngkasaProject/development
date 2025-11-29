@@ -1,0 +1,139 @@
+---
+// src/pages/index.astro
+import Layout from '../layouts/Layout.astro'
+import Cover from '../components/Cover.astro'
+import Opening from '../components/Opening.astro'
+import Quotes from '../components/Quotes.astro'
+import Mempelai from '../components/Mempelai.astro'
+import Acara from '../components/Acara.astro'
+import Maps from '../components/Maps.astro'
+import RSVP from '../components/RSVP.astro'
+import Gift from '../components/Gift.astro'
+import Closing from '../components/Closing.astro'
+import Navbar from '../components/Navbar.astro'
+import Preloader from '../components/Preloader.astro'
+
+// Import Config untuk Title
+import { UNDANGAN_CONFIG } from '../data/config'
+const pageTitle = `The Wedding of ${UNDANGAN_CONFIG.brideName} & ${UNDANGAN_CONFIG.groomName}`
+---
+
+<Layout title={pageTitle}>
+  <div
+    id="compatibility-modal"
+    class="modal fixed inset-0 z-[300] hidden opacity-0 flex justify-center items-center p-4"
+    aria-labelledby="modal-title"
+    role="dialog"
+    aria-modal="true"
+  >
+    <div class="modal-content w-full max-w-sm transform scale-95 transition-all">
+      <div class="bg-white rounded-2xl shadow-2xl p-6 text-center">
+        <div class="text-5xl color-accent-2 mb-4">
+          <i class="fas fa-exclamation-triangle"></i>
+        </div>
+
+        <h3 class="text-xl font-bold text-gray-900 mb-3" id="modal-title">
+          Perhatian Kompatibilitas Browser
+        </h3>
+
+        <p class="text-sm mb-4">
+          Browser yang Anda gunakan mungkin tidak sepenuhnya kompatibel atau kurang mendukung
+          fitur-fitur modern (seperti audio).
+        </p>
+
+        <div class="text-left bg-red-50 p-3 rounded-2xl border border-red-200 mb-5">
+          <p class="text-red-700 font-semibold mb-2 text-sm">Masalah yang Terdeteksi:</p>
+          <ul
+            id="compatibility-error-list"
+            class="list-disc list-inside text-red-600 text-xs space-y-1"
+          >
+          </ul>
+        </div>
+
+        <button
+          onclick="closeModal('compatibility-modal')"
+          class="w-full bg-[#C6915A] text-white font-bold py-2 rounded-2xl hover:bg-[#a67d4e] transition"
+        >
+          Tetap Lanjutkan (Risiko Ditanggung)
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <Preloader />
+
+  <audio id="background-music" loop preload="auto">
+    <source src={UNDANGAN_CONFIG.musicUrl} type="audio/mp3" />
+  </audio>
+
+  <div id="fullscreen-container" class="relative">
+    <Cover />
+
+    <div id="mobile-wrapper" class="background-modern1 h-screen overflow-hidden relative">
+      <!-- Music Control -->
+      <div
+        id="floating-music-controls"
+        class="z-[101] space-y-3 floating-action d-flex align-items-end flex-column duration-500"
+      >
+        <button
+          id="floating-menu-trigger"
+          class="btn-float bg-accent text-white"
+          onclick="toggleFloatingMenu()"
+        >
+          <i id="trigger-icon" class="fa fa-bars text-xl transition-transform duration-300"></i>
+        </button>
+
+        <button
+          id="music-pause-button"
+          class="btn-float bg-accent text-white"
+          aria-label="Toggle Play/Pause"
+        >
+          <i id="pause-icon" class="fas fa-pause text-xl"></i>
+        </button>
+
+        <!-- 2. Mute/Unmute Button -->
+        <button
+          id="music-mute-button"
+          class="btn-float nav-blur text-white hover:bg-gray-500"
+          aria-label="Toggle Mute"
+        >
+          <!-- Ikon Volume Up -->
+          <i id="mute-icon" class="fas fa-volume-up text-xl"></i>
+        </button>
+      </div>
+      <!-- End- Music Control -->
+
+      <Opening />
+
+      <Mempelai />
+
+      <Quotes />
+
+      <Acara />
+
+      <Maps />
+
+      <RSVP />
+
+      <Gift />
+
+      <Closing />
+
+      <Navbar />
+
+      <!-- CREDIT FOOTER (Initial position: fixed bottom, hidden) -->
+      <div
+        id="credit-footer"
+        class="fixed bottom-0 left-0 right-0 w-full bg-white/90 backdrop-blur-sm z-50 py-2 text-center text-xs border-t border-gray-200 opacity-0 pointer-events-none transition-all duration-500"
+      >
+        <div class="max-w-screen-xl mx-auto px-4">
+          <p>
+            Dibuat dengan ❤️ oleh
+            <strong class="color-accent font-semibold">Angkasa Project</strong>
+          </p>
+          <p class="text-center text-[10px]">&copy; 2025 VibeCoding</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</Layout>

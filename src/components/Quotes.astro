@@ -1,0 +1,72 @@
+---
+// src/components/Ucapan.astro
+import { UNDANGAN_CONFIG } from '../data/config'
+import OrnamentBackground from './OrnamentBackground.astro' // Menggunakan komponen latar belakang
+
+// Mengambil objek quote dari config
+const { quote } = UNDANGAN_CONFIG
+
+// Teks Arab untuk QS. Ar-Rum: 21 (Diambil dari konteks sebelumnya)
+const finalArabicQuote = quote?.arabicText ? quote.arabicText : 'Teks Arab tidak tersedia.'
+
+// Data yang akan ditampilkan
+const finalQuoteTranslation = quote?.text
+  ? quote.text
+  : '"[Error: Teks quote tidak ditemukan di config]"'
+const finalQuoteSource = quote?.source ? `✤ ${quote.source} ✤` : '✤ Sumber tidak tersedia ✤'
+---
+
+<div
+  id="ucapan"
+  class="angkasa_slide px-4 sm:px-6 relative min-h-screen flex flex-col justify-center items-center snap-start"
+  data-section="ucapan"
+>
+  <OrnamentBackground />
+
+  <div
+    class="blur-card bg-white/30 backdrop-blur-sm animated-content rounded-3xl mt-7 h-full w-full flex flex-col justify-center items-center"
+  >
+    <div class="content-layer text-center space-y-6 mx-6">
+      <div
+        data-animation-class="animate__fadeInDown"
+        class="ornament-item animate__slower"
+        style="
+                  width: 158px;
+                  height: 89px;
+                  margin: auto;
+                  overflow: hidden;
+                  padding-bottom: 25px;
+                "
+      >
+        <img
+          src="/asset/images/wayang-kecil.png"
+          alt="27897-gallery-1672939613.png"
+          style="width: 100%; height: 100%; object-fit: contain"
+        />
+      </div>
+
+      <div
+        data-animation-class="animate__fadeInDown"
+        class="mb-5 ornament-item animate__slower color-accent text-lg font-judul italic"
+      >
+        {finalQuoteSource}
+      </div>
+
+      <div
+        data-animation-class="animate__zoomIn"
+        class="color-accent quotes mb-5 ornament-item animate__slow text-4xl leading-relaxed"
+      >
+        <Fragment set:html={finalArabicQuote} />
+      </div>
+
+      <div
+        data-animation-class="animate__fadeInUp"
+        class="quotes ornament-item animate__slower font-dekor-1 text-[15px] leading-relaxed italic"
+      >
+        "
+        <Fragment set:html={finalQuoteTranslation} />
+        "
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,54 @@
+---
+// src/layouts/DashboardLayout.astro (Versi Final Perbaikan 404)
+import '../styles/global.css'
+import { DASHBOARD_CONFIG } from '../data/dashboard-config'
+
+const { SESSION_KEY, SLUG } = DASHBOARD_CONFIG
+const { title } = Astro.props
+---
+
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title || 'Dashboard Undangan'}</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <style>
+      :root {
+        --accent: #d1b09b;
+      }
+    </style>
+  </head>
+  <body class="bg-gray-900 text-white min-h-screen">
+    <div id="auth-guard">
+      <slot />
+    </div>
+
+    <script>
+      import { db } from '../data/firebase.js'
+      window.db = db
+    </script>
+
+    <script define:vars={{ SESSION_KEY, SLUG }}>
+      const checkAuth = () => {
+        const token = localStorage.getItem(SESSION_KEY)
+        if (!token) {
+          window.location.href = `/dashboard/login`
+        }
+      }
+
+      checkAuth()
+
+      window.logout = () => {
+        localStorage.removeItem(SESSION_KEY)
+        window.location.href = `/dashboard/login`
+      }
+    </script>
+  </body>
+</html>
