@@ -270,24 +270,11 @@ const { brideName, groomName } = UNDANGAN_CONFIG
 <script is:inline>
   document.addEventListener("DOMContentLoaded", () => {
     const btn = document.getElementById("open-button");
-    const cover = document.getElementById("cover-section-overlay");
-
-    if (!btn || !cover) return;
+    if (!btn) return;
 
     btn.addEventListener("click", () => {
-      // IZINKAN SCROLL
+      // izinkan scroll — HANYA INI
       document.body.classList.remove("no-scroll");
-
-      // ANIMASI HILANGKAN COVER
-      cover.style.transform = "translateY(-100%)";
-      cover.style.transition = "transform 700ms ease";
-
-      // OPTIONAL: hapus element cover setelah animasi
-      setTimeout(() => cover.remove(), 800);
-
-      // SCROLL KE SECTION BERIKUTNYA
-      const opening = document.querySelector(btn.dataset.target);
-      if (opening) opening.scrollIntoView({ behavior: "smooth" });
     });
   });
 </script>
