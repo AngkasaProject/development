@@ -35,6 +35,20 @@
   --font-latin2: 'Great Vibes', cursive;
 }
 
+/* LOCK SCROLL UNTUK COVER */
+body.no-scroll {
+  overflow: hidden !important;
+  height: 100svh !important;
+  touch-action: none !important;
+}
+
+/* COVER SELALU PENUH DAN TIDAK BISA DI-SCROLL */
+#cover-section-overlay {
+  height: 100svh;
+  overflow: hidden;
+  touch-action: none;
+}
+
 /* ====================================================================
    3. FONT & TEXT UTILITY CLASSES
    ==================================================================== */
@@ -287,7 +301,7 @@
   .angkasa_slide {
     height: 100svh !important;
   }
-  
+
 }
 
 
