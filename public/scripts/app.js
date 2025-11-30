@@ -249,11 +249,11 @@ function initializeMusicControl() {
   // 1. Initial interaction listener for Autoplay (Click/Touch)
   document.addEventListener('click', autoPlayAfterInteraction, {
     once: true,
-    capture: true
+    capture: true,
   })
   document.addEventListener('touchstart', autoPlayAfterInteraction, {
     once: true,
-    capture: true
+    capture: true,
   })
 
   // 2. Play/Pause Listener
@@ -354,11 +354,13 @@ function centerActiveNavItem(itemId) {
   if (!activeItem || !navContainer) return
 
   const scrollPosition =
-    activeItem.offsetLeft - navContainer.clientWidth / 2 + activeItem.offsetWidth / 2
+    activeItem.offsetLeft -
+    navContainer.clientWidth / 2 +
+    activeItem.offsetWidth / 2
 
   navContainer.scrollTo({
     left: scrollPosition,
-    behavior: 'smooth'
+    behavior: 'smooth',
   })
 }
 
@@ -366,16 +368,22 @@ function scrollToSection(event, sectionId) {
   event.preventDefault()
   const targetSection = document.getElementById(sectionId)
 
-  if (targetSection && mobileWrapper && mobileWrapper.style.overflowY !== 'hidden') {
+  if (
+    targetSection &&
+    mobileWrapper &&
+    mobileWrapper.style.overflowY !== 'hidden'
+  ) {
     mobileWrapper.scrollTo({
       top: targetSection.offsetTop,
-      behavior: 'smooth'
+      behavior: 'smooth',
     })
 
     updateNavbarActiveState(sectionId)
     centerActiveNavItem(sectionId)
 
-    document.querySelectorAll('.angkasa_slide').forEach((sec) => sec.classList.remove('is-active'))
+    document
+      .querySelectorAll('.angkasa_slide')
+      .forEach((sec) => sec.classList.remove('is-active'))
     targetSection.classList.add('is-active')
     triggerOrnamentAnimation(targetSection)
   }
@@ -436,14 +444,16 @@ function handlePreloader() {
       loadFired = true
       attemptHide()
     },
-    { once: true }
+    { once: true },
   )
 
   // --- 3. FALLBACK GUARANTEE (Jaminan hilang setelah MAX_WAIT_TIME) ---
   // Jika load event diblokir (kemungkinan besar penyebab masalah Anda), ini akan memaksa preloader hilang.
   setTimeout(() => {
     if (!hasHidden) {
-      console.warn('Preloader dipaksa hilang setelah 8 detik. Mungkin ada aset yang terblokir.')
+      console.warn(
+        'Preloader dipaksa hilang setelah 8 detik. Mungkin ada aset yang terblokir.',
+      )
       hidePreloaderVisuals()
     }
   }, MAX_WAIT_TIME)
@@ -535,7 +545,9 @@ function injectConfigData() {
   }
 
   // --- MODAL FISIK ---
-  const physicalModalAddressEl = document.getElementById('modal-physical-address')
+  const physicalModalAddressEl = document.getElementById(
+    'modal-physical-address',
+  )
   if (physicalModalAddressEl) {
     physicalModalAddressEl.innerText = config.physicalGift.address
   }
@@ -547,7 +559,7 @@ function injectConfigData() {
     // Karena menggunakan event handler inline, kita hanya perlu memastikan teks yang disalin benar
     copyAddressButton.setAttribute(
       'onclick',
-      `copyAndClose('${addressToCopy}', 'alamat-fisik-btn', 'modal-fisik')`
+      `copyAndClose('${addressToCopy}', 'alamat-fisik-btn', 'modal-fisik')`,
     )
   }
 }
@@ -572,7 +584,9 @@ document.addEventListener('DOMContentLoaded', () => {
   if (creditFooter) creditFooter.classList.add('transition-all', 'duration-500')
 
   if (!mobileWrapper || !bottomNavbar || !openButton) {
-    console.error('DOM Initialization Failed: One or more critical elements are missing.')
+    console.error(
+      'DOM Initialization Failed: One or more critical elements are missing.',
+    )
     return
   }
 
@@ -588,7 +602,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const observerOptions = {
     root: mobileWrapper,
     rootMargin: '0px',
-    threshold: 0.8
+    threshold: 0.8,
   }
 
   observer = new IntersectionObserver((entries) => {
@@ -609,13 +623,16 @@ document.addEventListener('DOMContentLoaded', () => {
       }
       if (entry.target.id === 'closing') {
         const trigger = document.getElementById('floating-menu-trigger')
-        const menu = document.getElementById('floating-menu')
 
         if (entry.isIntersecting) {
           // Sesi Penutup Terlihat: Sembunyikan Bottom Navbar & Tampilkan Trigger
 
           // 1. COLLAPSE: Sembunyikan Bottom Navbar Penuh
-          bottomNavbar.classList.remove('translate-y-0', 'opacity-100', 'pointer-events-auto')
+          bottomNavbar.classList.remove(
+            'translate-y-0',
+            'opacity-100',
+            'pointer-events-auto',
+          )
           bottomNavbar.classList.add('opacity-0', 'pointer-events-none')
 
           // Jika menu sedang terbuka, tutup dulu sebelum navbar hilang
@@ -635,7 +652,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
           // 1. Tampilkan Navbar Penuh
           bottomNavbar.classList.remove('opacity-0', 'pointer-events-none')
-          bottomNavbar.classList.add('translate-y-0', 'opacity-100', 'pointer-events-auto')
+          bottomNavbar.classList.add(
+            'translate-y-0',
+            'opacity-100',
+            'pointer-events-auto',
+          )
 
           // 2. Sembunyikan Trigger (dan pastikan menu tertutup)
           if (isFloatingMenuOpen) {
@@ -669,7 +690,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Scroll ke section
         mobileWrapper.scrollTo({
           top: targetElement.offsetTop,
-          behavior: 'smooth'
+          behavior: 'smooth',
         })
       }
     })
@@ -726,7 +747,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Scroll to the first section after the overlay is hidden
         mobileWrapper.scrollTo({
           top: targetSection.offsetTop,
-          behavior: 'smooth'
+          behavior: 'smooth',
         })
 
         updateNavbarActiveState(firstSectionId)
