@@ -64,5 +64,8 @@ export const UNDANGAN_CONFIG = {
   locationFullAddress:
     'Dk Klesem, RT25/08, GunungJaya, Belik, Pemalang, Jawa Tengah',
 
-  sponsors: ['./asset/images/sponsor1.png', './asset/images/sponsor2.png'],
+  sponsors: [
+    'https://assets.aethersub.store/images/aethersub.png',
+    'https://assets.aethersub.store/images/cloudflare.png',
+  ],
 }
