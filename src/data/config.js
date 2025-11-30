@@ -1,6 +1,6 @@
 export const UNDANGAN_CONFIG = {
   guestNameDefault: 'Tamu Undangan',
-  musicUrl: 'https://aethersub.store/asset/Music/latar.mp3',
+  musicUrl: 'https://assets.aethersub.store/music/Nadine-Hamizah-AH.mp3',
 
   // Nama Mempelai
   brideName: 'Tia',
@@ -44,18 +44,18 @@ export const UNDANGAN_CONFIG = {
   gifts: [
     {
       bank: 'MANDIRI',
-      number: '0011223344',
+      number: '1390032325783',
       name: 'Yoga Saputra',
     },
     {
       bank: 'BRI',
-      number: '08901234567890',
+      number: '054501010747535',
       name: 'Tia Rokhimah',
     },
   ],
 
   // Qris Image (Array Gifts)
-  qrisImageUrl: '/asset/images/qris.jpeg',
+  qrisImageUrl: 'https://assets.aethersub.store/images/qris.jpeg',
 
   gmapsLink: 'https://maps.app.goo.gl/JxGnFRvewacvZiBk8',
   mapsIframeUrl:
