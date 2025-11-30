@@ -2,62 +2,6 @@
 // A. FUNGSI UTILITY (COPY, MODAL)
 // ====================================================================
 
-function initializeFloatingMenu() {
-  const items = document.querySelectorAll('#floating-menu a')
-  // Mengatur status awal semua item agar bertumpuk, tidak terlihat, dan tidak bisa diklik.
-  items.forEach((item) => {
-    item.style.transform = 'translate(0, 0)'
-    item.style.opacity = '0'
-    item.style.pointerEvents = 'none'
-  })
-}
-
-let isFloatingMenuOpen = false
-
-function toggleFloatingMenu() {
-  const trigger = document.getElementById('floating-menu-trigger')
-  const icon = document.getElementById('trigger-icon')
-  const bottomNavbar = document.getElementById('bottom-navbar')
-  const creditFooter = document.getElementById('credit-footer')
-
-  if (!trigger || !icon || !bottomNavbar || !creditFooter) return
-
-  // Toggle status
-  isFloatingMenuOpen = !isFloatingMenuOpen
-
-  if (isFloatingMenuOpen) {
-    // SCENARIO: BUKA MENU (Sesuai permintaan: Tampilkan Navbar & Sembunyikan Footer)
-
-    // 1. Ganti Ikon dari '+' menjadi 'X'
-    icon.classList.remove('fa-bars')
-    icon.classList.add('fa-times')
-    icon.style.transform = ''
-
-    // 2. Tampilkan Navbar (Menu Bawah)
-    bottomNavbar.classList.remove('opacity-0')
-    bottomNavbar.classList.add('opacity-100')
-
-    // 3. Sembunyikan Footer (credit-footer)
-    creditFooter.classList.add('opacity-0', 'pointer-events-none')
-    creditFooter.classList.remove('opacity-100', 'pointer-events-auto')
-  } else {
-    // SCENARIO: TUTUP MENU (Kembalikan ke kondisi awal)
-
-    // 1. Ganti Ikon dari 'X' menjadi '+'
-    icon.classList.remove('fa-times')
-    icon.classList.add('fa-bars')
-
-    // 2. Sembunyikan Navbar (Menu Bawah)
-    bottomNavbar.classList.remove('opacity-100')
-    bottomNavbar.classList.add('opacity-0')
-
-    // 3. Tampilkan Footer (credit-footer)
-    creditFooter.classList.remove('opacity-0', 'pointer-events-none')
-    creditFooter.classList.add('opacity-100', 'pointer-events-auto')
-  }
-}
-window.toggleFloatingMenu = toggleFloatingMenu
-
 async function copyToClipboard(textToCopy, buttonId) {
   const button = document.getElementById(buttonId)
   if (!button) return
@@ -577,11 +521,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const fullscreenTarget = document.getElementById('fullscreen-container')
   const musicControls = document.getElementById('floating-music-controls')
   const music = document.getElementById('background-music')
-  const collapseButton = document.getElementById('navbar-collapse-button')
-  const creditFooter = document.getElementById('credit-footer')
-
-  if (bottomNavbar) bottomNavbar.classList.add('transition-all', 'duration-500')
-  if (creditFooter) creditFooter.classList.add('transition-all', 'duration-500')
 
   if (!mobileWrapper || !bottomNavbar || !openButton) {
     console.error(
@@ -593,7 +532,6 @@ document.addEventListener('DOMContentLoaded', () => {
   // 3. Tampilkan Nama Tamu & Kontrol Musik
   displayGuestName()
   initializeMusicControl()
-  initializeFloatingMenu()
 
   // 4. Mulai Preloader (Sekarang lebih tangguh!)
   handlePreloader()
@@ -620,55 +558,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Trigger ornament animation on natural scroll (TETAP ADA)
         triggerOrnamentAnimation(section)
-      }
-      if (entry.target.id === 'closing') {
-        const trigger = document.getElementById('floating-menu-trigger')
-
-        if (entry.isIntersecting) {
-          // Sesi Penutup Terlihat: Sembunyikan Bottom Navbar & Tampilkan Trigger
-
-          // 1. COLLAPSE: Sembunyikan Bottom Navbar Penuh
-          bottomNavbar.classList.remove(
-            'translate-y-0',
-            'opacity-100',
-            'pointer-events-auto',
-          )
-          bottomNavbar.classList.add('opacity-0', 'pointer-events-none')
-
-          // Jika menu sedang terbuka, tutup dulu sebelum navbar hilang
-          if (isFloatingMenuOpen) {
-            toggleFloatingMenu()
-          }
-
-          // 2. Tampilkan Trigger (AssistiveTouch)
-          trigger.classList.remove('opacity-0', 'pointer-events-none')
-          trigger.classList.add('opacity-100', 'pointer-events-auto')
-
-          // 3. Tampilkan Footer
-          creditFooter.classList.remove('opacity-0', 'pointer-events-none')
-          creditFooter.classList.add('opacity-100', 'pointer-events-auto')
-        } else {
-          // Keluar dari Sesi Penutup: Tampilkan Bottom Navbar & Sembunyikan Trigger
-
-          // 1. Tampilkan Navbar Penuh
-          bottomNavbar.classList.remove('opacity-0', 'pointer-events-none')
-          bottomNavbar.classList.add(
-            'translate-y-0',
-            'opacity-100',
-            'pointer-events-auto',
-          )
-
-          // 2. Sembunyikan Trigger (dan pastikan menu tertutup)
-          if (isFloatingMenuOpen) {
-            toggleFloatingMenu()
-          }
-          trigger.classList.remove('opacity-100', 'pointer-events-auto')
-          trigger.classList.add('opacity-0', 'pointer-events-none')
-
-          // 3. Sembunyikan Footer
-          creditFooter.classList.remove('opacity-100', 'pointer-events-auto')
-          creditFooter.classList.add('opacity-0', 'pointer-events-none')
-        }
       }
     })
   }, observerOptions)
@@ -761,6 +650,6 @@ document.addEventListener('DOMContentLoaded', () => {
       }
       bottomNavbar.classList.remove('translate-y-full')
       bottomNavbar.classList.add('translate-y-0')
-    }, 750)
+    }, 800)
   })
 })

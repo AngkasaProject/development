@@ -33,13 +33,13 @@ const groomParentsDisplay = `Putra dari<br />${groomFatherName ? `Bapak ${groomF
       class="blur-card animated-content flex h-full w-full max-w-[540px] flex-col justify-center rounded-3xl bg-(--inv-bg)/30 p-6 shadow-lg backdrop-blur-sm sm:p-8"
     >
       <div
-        class="content-layer font-dekor-1 mx-auto w-full max-w-[420px] px-4 py-4 text-center sm:px-6"
+        class="content-layer font-dekor-1 mx-auto w-full max-w-[460px] px-4 py-6 text-center sm:px-6 sm:py-8"
       >
         <div
           data-animation-class="animate__fadeInLeft"
-          class="ornament-item animate__slower mt-4"
+          class="ornament-item animate__slower"
         >
-          <div class="frame-mempelai">
+          <div class="frame-mempelai mx-auto w-full">
             <div class="image-container">
               <img
                 src="/asset/images/wanita.webp"
@@ -49,7 +49,7 @@ const groomParentsDisplay = `Putra dari<br />${groomFatherName ? `Bapak ${groomF
               />
             </div>
           </div>
-          <div class="text-center">
+          <div class="mt-2 text-center">
             <div class="font-accent color-accent text-2xl">{brideFullName}</div>
             <div class="text-sm italic" set:html={brideParentsDisplay} />
           </div>
@@ -81,13 +81,15 @@ const groomParentsDisplay = `Putra dari<br />${groomFatherName ? `Bapak ${groomF
           data-animation-class="animate__fadeInRight"
           class="ornament-item animate__slower"
         >
-          <div class="mb-8 text-center">
+          <div class="mb-3 text-center">
             <div class="font-accent color-accent text-2xl">{groomFullName}</div>
             <div class="text-sm italic" set:html={groomParentsDisplay} />
           </div>
 
-          <div class="frame-mempelai mt-30">
-            <div class="image-container">
+          <div class="frame-mempelai mx-auto w-full">
+            <div
+              class="image-container mx-auto aspect-[3/4] w-full overflow-hidden rounded-2xl"
+            >
               <img
                 src="/asset/images/pria.webp"
                 onerror="this.src='https://placehold.co/100x130/C6915A/white?text=Pria'"

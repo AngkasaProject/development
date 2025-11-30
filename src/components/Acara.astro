@@ -22,31 +22,20 @@ const akadWaktuPenuh = `${akadMulai} - Selesai`
     class="angkasa_inner flex h-[calc(100dvh-80px)] w-full flex-col justify-center px-6 py-6 pt-10 sm:px-6 sm:py-8"
   >
     <div
-      class="blur-card animated-content flex h-full w-full max-w-[540px] flex-col justify-center rounded-3xl bg-(--inv-bg)/30 p-6 shadow-lg backdrop-blur-sm sm:p-8"
+      class="blur-card animated-content flex h-full w-full max-w-[540px] flex-col justify-center rounded-3xl bg-(--inv-bg)/30 p-6 shadow-lg backdrop-blur-xs sm:p-8"
     >
       <div
-        class="content-layer font-dekor-1 mx-auto w-full max-w-[420px] px-4 py-4 text-center sm:px-6"
+        class="content-layer font-dekor-1 mx-auto w-full max-w-[460px] px-4 py-6 text-center sm:px-6 sm:py-8"
       >
         <div
           data-animation-class="animate__fadeInDown"
-          class="ornament-item animate__slower"
+          class="ornament-item animate__slower mx-auto mb-6 w-[50px]"
         >
-          <div
-            class=""
-            style="
-                    width: 158px;
-                    height: 89px;
-                    margin: auto;
-                    overflow: hidden;
-                    padding-bottom: 20px;
-                  "
-          >
-            <img
-              src="./asset/images/way-kecil.png"
-              style="width: 100%; height: 100%; object-fit: contain"
-              alt="Ornamen Atas"
-            />
-          </div>
+          <img
+            src="/asset/images/wayang-kecil.png"
+            alt="wayang kecil"
+            class="h-auto w-full object-contain"
+          />
         </div>
 
         <div
@@ -86,7 +75,7 @@ const akadWaktuPenuh = `${akadMulai} - Selesai`
           <div class="font-judul color-accent text-lg italic">
             ✤ Kediaman Wanita ✤
           </div>
-          <div id="akad-location" class="max-w-2xs text-[15px]">
+          <div id="akad-location" class="max-w-2xs text-center text-[15px]">
             {akadLocation}
           </div>
         </div>
@@ -115,7 +104,7 @@ const akadWaktuPenuh = `${akadMulai} - Selesai`
           >
             <!-- Hari (Days) -->
             <div
-              class="flex-1 rounded-lg bg-white/10 px-1 py-2 shadow-lg backdrop-blur-md sm:px-3"
+              class="flex-1 rounded-lg bg-white/10 px-1 py-2 shadow-lg backdrop-blur-sm sm:px-3"
             >
               <div
                 id="days-opening"
@@ -128,7 +117,7 @@ const akadWaktuPenuh = `${akadMulai} - Selesai`
 
             <!-- Jam (Hours) -->
             <div
-              class="flex-1 rounded-lg bg-white/10 px-1 py-2 shadow-lg backdrop-blur-md sm:px-3"
+              class="flex-1 rounded-lg bg-white/10 px-1 py-2 shadow-lg backdrop-blur-sm sm:px-3"
             >
               <div
                 id="hours-opening"
@@ -141,7 +130,7 @@ const akadWaktuPenuh = `${akadMulai} - Selesai`
 
             <!-- Menit (Minutes) -->
             <div
-              class="flex-1 rounded-lg bg-white/10 px-1 py-2 shadow-lg backdrop-blur-md sm:px-3"
+              class="flex-1 rounded-lg bg-white/10 px-1 py-2 shadow-lg backdrop-blur-sm sm:px-3"
             >
               <div
                 id="minutes-opening"
@@ -154,7 +143,7 @@ const akadWaktuPenuh = `${akadMulai} - Selesai`
 
             <!-- Detik (Seconds) - MENGHAPUS 'hidden sm:block' AGAR TAMPIL DI MOBILE -->
             <div
-              class="flex-1 rounded-lg bg-white/10 px-1 py-2 shadow-lg backdrop-blur-md sm:px-3"
+              class="flex-1 rounded-lg bg-white/10 px-1 py-2 shadow-lg backdrop-blur-sm sm:px-3"
             >
               <div
                 id="seconds-opening"

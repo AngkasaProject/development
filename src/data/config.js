@@ -19,15 +19,10 @@ export const UNDANGAN_CONFIG = {
   akadDayDisplay: "Jum'at",
   akadDateDisplay: '23.01.26',
   akadTimeDisplay: 'Pukul 13:00 ',
-  akadLocation: 'Dusun Klesem, RT25/08, GunungJaya, Belik, Pemalang',
+  akadLocation: 'Dusun Klesem, Rt.02/Rw.08, GunungJaya, Belik, Pemalang',
 
   // Link untuk Countdown
   countdownTargetDate: 'Jan 23, 2026 13:00:00', // Format: Month Day, Year HH:MM:SS
-
-  // --- add to calender ---
-  calendarLink:
-    'https://calendar.google.com/event?action=TEMPLATE&text=Pernikahan+Tia+%26+Yoga&dates=20260123T060000Z/20260123T090000Z&details=Pernikahan+Tia+Rokhimah+dan+Yoga+Saputra&location=Dusun+Klesem,+Belik,+Pemalang',
-  wazeLink: 'https://waze.com/ul?ll=-7.1234,109.4321&navigate=yes&zoom=10',
 
   // --- QUOTE ---
   quote: {
@@ -35,7 +30,7 @@ export const UNDANGAN_CONFIG = {
     source: 'QS. Ar-Rum: 21',
     // Tambahkan Teks Arab di sini
     arabicText:
-      'وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم مِّنْ أَنفُسِكُمْ أَزْوَاجًا لِّتَسْكُنُوا إِلَيْهَا وَجَعَلَ بَيْنَكُم مَّوَدَّةً وَرَحْمَةً'
+      'وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم مِّنْ أَنفُسِكُمْ أَزْوَاجًا لِّتَسْكُنُوا إِلَيْهَا وَجَعَلَ بَيْنَكُم مَّوَدَّةً وَرَحْمَةً',
   },
 
   // Alamat Fisik
@@ -50,13 +45,13 @@ export const UNDANGAN_CONFIG = {
     {
       bank: 'MANDIRI',
       number: '0011223344',
-      name: 'Yoga Saputra'
+      name: 'Yoga Saputra',
     },
     {
       bank: 'BRI',
       number: '08901234567890',
-      name: 'Tia Rokhimah'
-    }
+      name: 'Tia Rokhimah',
+    },
   ],
 
   // Qris Image (Array Gifts)
@@ -66,7 +61,8 @@ export const UNDANGAN_CONFIG = {
   mapsIframeUrl:
     'https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d1184.2778167850392!2d109.3764659268553!3d-7.153596896371059!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e1!3m2!1sid!2sid!4v1764042119400!5m2!1sid!2sid',
   locationName: 'Dk.Klesem Gunung Jaya',
-  locationFullAddress: 'Dk Klesem, RT25/08, GunungJaya, Belik, Pemalang, Jawa Tengah',
+  locationFullAddress:
+    'Dk Klesem, RT25/08, GunungJaya, Belik, Pemalang, Jawa Tengah',
 
-  sponsors: ['./asset/images/sponsor1.png', './asset/images/sponsor2.png']
+  sponsors: ['./asset/images/sponsor1.png', './asset/images/sponsor2.png'],
 }

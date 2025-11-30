@@ -522,7 +522,6 @@ body.no-scroll {
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
-  width: 300px;
   margin: auto;
 }
 .image-container {
@@ -532,7 +531,6 @@ body.no-scroll {
   border: 2px solid #c6915a;
   border-radius: 50px 50px 0 0;
   overflow: hidden;
-  transform: translateY(-14px);
 }
 
 /* 3. STYLING KHUSUS UNTUK TANGGAL & HARI 
@@ -604,7 +602,7 @@ body.no-scroll {
   opacity: 1;
 }
 
-@media (min-width: 425px) {
+@media (min-width: 431px) {
   #mobile-wrapper {
     height: 100%;
   }

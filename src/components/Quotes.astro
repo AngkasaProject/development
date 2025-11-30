@@ -33,47 +33,42 @@ const finalQuoteSource = quote?.source
       class="blur-card animated-content flex h-full w-full max-w-[540px] flex-col justify-center rounded-3xl bg-(--inv-bg)/30 p-6 shadow-lg backdrop-blur-sm sm:p-8"
     >
       <div
-        class="content-layer font-dekor-1 mx-auto w-full max-w-[420px] px-4 py-4 text-center sm:px-6"
+        class="content-layer font-dekor-1 mx-auto w-full max-w-[460px] px-4 py-6 text-center sm:px-6 sm:py-8"
       >
+        <!-- WAYANG ICON -->
         <div
           data-animation-class="animate__fadeInDown"
-          class="ornament-item animate__slower"
-          style="
-                  width: 158px;
-                  height: 89px;
-                  margin: auto;
-                  overflow: hidden;
-                  padding-bottom: 25px;
-                "
+          class="ornament-item animate__slower mx-auto mb-6 w-[50px]"
         >
           <img
             src="/asset/images/wayang-kecil.png"
-            alt="27897-gallery-1672939613.png"
-            style="width: 100%; height: 100%; object-fit: contain"
+            alt="wayang kecil"
+            class="h-auto w-full object-contain"
           />
         </div>
 
+        <!-- SOURCE -->
         <div
           data-animation-class="animate__fadeInDown"
-          class="ornament-item animate__slower color-accent font-judul mb-5 text-lg italic"
+          class="ornament-item animate__slower color-accent font-judul mb-4 text-base italic sm:text-lg"
         >
           {finalQuoteSource}
         </div>
 
+        <!-- ARABIC QUOTE -->
         <div
           data-animation-class="animate__zoomIn"
-          class="color-accent quotes ornament-item animate__slower mb-5 text-4xl leading-relaxed"
+          class="color-accent quotes ornament-item animate__slower mb-6 text-[clamp(24px,6vw,40px)] leading-normal"
         >
           <Fragment set:html={finalArabicQuote} />
         </div>
 
+        <!-- TRANSLATION -->
         <div
           data-animation-class="animate__fadeInUp"
-          class="quotes ornament-item animate__slower font-dekor-1 text-[15px] leading-relaxed italic"
+          class="quotes ornament-item animate__slower font-dekor-1 px-2 text-[clamp(13px,3.5vw,16px)] leading-relaxed italic"
         >
-          "
-          <Fragment set:html={finalQuoteTranslation} />
-          "
+          “<Fragment set:html={finalQuoteTranslation} />”
         </div>
       </div>
     </div>
