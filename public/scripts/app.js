@@ -13,12 +13,12 @@ async function copyToClipboard(textToCopy, buttonId) {
   const showFeedback = () => {
     // Feedback visual
     button.innerHTML = '<i class="fas fa-check mr-1"></i> Tersalin!'
-    button.classList.add('text-green-500')
+    button.classList.add('bg-lime-500')
 
     // Kembalikan teks tombol
     setTimeout(() => {
       button.innerHTML = originalText
-      button.classList.remove('text-green-500')
+      button.classList.remove('bg-lime-500')
     }, 2000)
   }
 

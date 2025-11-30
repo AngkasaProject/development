@@ -8,7 +8,7 @@ import OrnamentBackground from './OrnamentBackground.astro'
 const bank1 = UNDANGAN_CONFIG.gifts[0]
 const bank2 = UNDANGAN_CONFIG.gifts[1]
 const qrisRecipientName = UNDANGAN_CONFIG.brideFullName
-const address = `${UNDANGAN_CONFIG.physicalAddress}, ${UNDANGAN_CONFIG.physicalCity}`
+const address = `${UNDANGAN_CONFIG.physicalAddress}, ${UNDANGAN_CONFIG.physicalCity},${UNDANGAN_CONFIG.physicalZip}`
 const contact = UNDANGAN_CONFIG.contactNumber
 const fullAddressAndContact = `${address} | Kontak: ${contact}`
 const qrisImageUrl = UNDANGAN_CONFIG.qrisImageUrl
@@ -109,7 +109,7 @@ const qrisFileName = `QRIS-${UNDANGAN_CONFIG.groomName}-${UNDANGAN_CONFIG.brideN
           <button
             id="copy-bank-1-btn"
             onclick={`copyAndClose('${bank1.number}', 'copy-bank-1-btn', 'modal-digital')`}
-            class="text-btn btn-utama hover:bg-rose-gold/90 mt-2 rounded px-3 py-1 text-xs font-semibold transition duration-150"
+            class="mt-2 rounded bg-(--inv-accent) px-3 py-1 text-xs font-semibold text-white transition duration-150"
           >
             <i class="fas fa-copy mr-1"></i> Salin & Tutup
           </button>
@@ -126,7 +126,7 @@ const qrisFileName = `QRIS-${UNDANGAN_CONFIG.groomName}-${UNDANGAN_CONFIG.brideN
           <button
             id="copy-bank-2-btn"
             onclick={`copyAndClose('${bank2.number}', 'copy-bank-2-btn', 'modal-digital')`}
-            class="text-btn btn-utama hover:bg-rose-gold/90 mt-2 rounded px-3 py-1 text-xs font-semibold transition duration-150"
+            class="mt-2 rounded bg-(--inv-accent) px-3 py-1 text-xs font-semibold text-white transition duration-150"
           >
             <i class="fas fa-copy mr-1"></i> Salin & Tutup
           </button>
@@ -170,7 +170,7 @@ const qrisFileName = `QRIS-${UNDANGAN_CONFIG.groomName}-${UNDANGAN_CONFIG.brideN
       <a
         href={qrisImageUrl}
         download={qrisFileName}
-        class="btn-utama text-btn mt-5 inline-block rounded-2xl px-4 py-2 text-sm font-bold uppercase shadow-md transition duration-300"
+        class="mt-5 inline-block rounded-2xl bg-(--inv-accent) px-4 py-2 text-sm font-bold text-white uppercase shadow-md transition duration-300"
       >
         <i class="fas fa-download mr-2"></i> Download Gambar QRIS
       </a>
@@ -213,7 +213,7 @@ const qrisFileName = `QRIS-${UNDANGAN_CONFIG.groomName}-${UNDANGAN_CONFIG.brideN
       <button
         id="alamat-fisik-btn"
         onclick={`copyToClipboard('${fullAddressAndContact}', 'alamat-fisik-btn')`}
-        class="text-btn btn-utama hover:bg-navy-modern/90 mt-5 rounded-2xl px-4 py-2 text-sm font-bold transition duration-150"
+        class="mt-5 rounded-2xl bg-(--inv-accent) px-4 py-2 text-sm font-bold text-white transition duration-150"
       >
         <i class="fas fa-copy mr-2"></i> Salin Alamat Pengiriman
       </button>

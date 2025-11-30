@@ -95,13 +95,6 @@ body.no-scroll {
 .color-accent-2 {
   color: var(--inv-accent);
 }
-.btn-utama {
-  background-color: var(--inv-accent);
-}
-.text-btn {
-  color: var(--btn-color);
-}
-
 /* ====================================================================
    5. KEYFRAME DEFINITIONS (ANIMATIONS)
    ==================================================================== */
