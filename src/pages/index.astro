@@ -1,21 +1,21 @@
 ---
 // src/pages/index.astro
-import Layout from '../layouts/Layout.astro'
-import Cover from '../components/Cover.astro'
-import Opening from '../components/Opening.astro'
-import Quotes from '../components/Quotes.astro'
-import Mempelai from '../components/Mempelai.astro'
-import Acara from '../components/Acara.astro'
-import Maps from '../components/Maps.astro'
-import RSVP from '../components/RSVP.astro'
-import Gift from '../components/Gift.astro'
-import Closing from '../components/Closing.astro'
-import Navbar from '../components/Navbar.astro'
-import Preloader from '../components/Preloader.astro'
+import Layout from '../layouts/Layout.astro';
+import Cover from '../components/Cover.astro';
+import Opening from '../components/Opening.astro';
+import Quotes from '../components/Quotes.astro';
+import Mempelai from '../components/Mempelai.astro';
+import Acara from '../components/Acara.astro';
+import Maps from '../components/Maps.astro';
+import RSVP from '../components/RSVP.astro';
+import Gift from '../components/Gift.astro';
+import Closing from '../components/Closing.astro';
+import Navbar from '../components/Navbar.astro';
+import Preloader from '../components/Preloader.astro';
 
 // Import Config untuk Title
-import { UNDANGAN_CONFIG } from '../data/config'
-const pageTitle = `The Wedding of ${UNDANGAN_CONFIG.brideName} & ${UNDANGAN_CONFIG.groomName}`
+import { UNDANGAN_CONFIG } from '../data/config';
+const pageTitle = `The Wedding of ${UNDANGAN_CONFIG.brideName} & ${UNDANGAN_CONFIG.groomName}`;
 ---
 
 <Layout title={pageTitle}>
@@ -26,9 +26,7 @@ const pageTitle = `The Wedding of ${UNDANGAN_CONFIG.brideName} & ${UNDANGAN_CONF
     role="dialog"
     aria-modal="true"
   >
-    <div
-      class="modal-content w-full max-w-sm scale-95 transform transition-all"
-    >
+    <div class="modal-content w-full max-w-sm scale-95 transform transition-all">
       <div class="rounded-2xl bg-white p-6 text-center shadow-2xl">
         <div class="color-accent-2 mb-4 text-5xl">
           <i class="fas fa-exclamation-triangle"></i>
@@ -39,16 +37,12 @@ const pageTitle = `The Wedding of ${UNDANGAN_CONFIG.brideName} & ${UNDANGAN_CONF
         </h3>
 
         <p class="mb-4 text-sm">
-          Browser yang Anda gunakan mungkin tidak sepenuhnya kompatibel atau
-          kurang mendukung fitur-fitur modern (seperti audio).
+          Browser yang Anda gunakan mungkin tidak sepenuhnya kompatibel atau kurang mendukung
+          fitur-fitur modern (seperti audio).
         </p>
 
-        <div
-          class="mb-5 rounded-2xl border border-red-200 bg-red-50 p-3 text-left"
-        >
-          <p class="mb-2 text-sm font-semibold text-red-700">
-            Masalah yang Terdeteksi:
-          </p>
+        <div class="mb-5 rounded-2xl border border-red-200 bg-red-50 p-3 text-left">
+          <p class="mb-2 text-sm font-semibold text-red-700">Masalah yang Terdeteksi:</p>
           <ul
             id="compatibility-error-list"
             class="list-inside list-disc space-y-1 text-xs text-red-600"
@@ -75,10 +69,7 @@ const pageTitle = `The Wedding of ${UNDANGAN_CONFIG.brideName} & ${UNDANGAN_CONF
   <div id="fullscreen-container" class="relative">
     <Cover />
 
-    <div
-      id="mobile-wrapper"
-      class="background-modern1 relative h-screen overflow-hidden"
-    >
+    <div id="mobile-wrapper" class="background-modern1 relative h-screen overflow-hidden">
       <!-- Music Control -->
       <div
         id="floating-music-controls"
