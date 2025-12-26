@@ -131,6 +131,20 @@ function displayGuestName() {
 // ====================================================================
 // D. FUNGSI KONTROL MUSIK
 // ====================================================================
+// Fungsi untuk menaikkan volume secara bertahap
+function fadeIn(audioElement, targetVolume = 0.5, duration = 2000) {
+  audioElement.volume = 0;
+  const interval = 50; // Update setiap 50ms
+  const step = targetVolume / (duration / interval);
+
+  const fade = setInterval(() => {
+    if (audioElement.volume < targetVolume) {
+      audioElement.volume = Math.min(targetVolume, audioElement.volume + step);
+    } else {
+      clearInterval(fade);
+    }
+  }, interval);
+}
 
 let globalUpdatePauseIcon;
 let globalUpdateMuteIcon;
@@ -139,98 +153,93 @@ let globalIsPlaying = false;
 function initializeMusicControl() {
   const music = document.getElementById('background-music');
   const pauseButton = document.getElementById('music-pause-button');
-  const muteButton = document.getElementById('music-mute-button');
+  const nextButton = document.getElementById('music-next-button');
   const pauseIcon = document.getElementById('pause-icon');
-  const muteIcon = document.getElementById('mute-icon');
 
-  if (!music || !pauseButton || !muteButton || !pauseIcon || !muteIcon) return;
+  if (!music || !pauseButton || !nextButton || !pauseIcon) return;
 
-  // Mendefinisikan fungsi update dan menyimpannya ke variabel global
-  function updatePauseIcon(playing) {
-    if (playing) {
+  const config = window.UNDANGAN_CONFIG;
+
+  // --- LOGIKA UTAMA UNTUK MENGUBAH IKON ---
+  globalUpdatePauseIcon = function (isPlaying) {
+    if (isPlaying) {
       pauseIcon.classList.remove('fa-play');
       pauseIcon.classList.add('fa-pause');
     } else {
       pauseIcon.classList.remove('fa-pause');
       pauseIcon.classList.add('fa-play');
     }
+  };
+
+  function fadeIn(audioElement, targetVolume = 0.5, duration = 2000) {
+    audioElement.volume = 0;
+    const interval = 50;
+    const step = targetVolume / (duration / interval);
+    const fade = setInterval(() => {
+      if (audioElement.volume < targetVolume) {
+        audioElement.volume = Math.min(targetVolume, audioElement.volume + step);
+      } else {
+        clearInterval(fade);
+      }
+    }, interval);
   }
 
-  function updateMuteIcon(muted) {
-    if (muted) {
-      muteIcon.classList.remove('fa-volume-up');
-      muteIcon.classList.add('fa-volume-mute');
-    } else {
-      muteIcon.classList.remove('fa-volume-mute');
-      muteIcon.classList.add('fa-volume-up');
+  music.onerror = () => {
+    console.error('Gagal memuat lagu, mencoba lagu lain...');
+    // Berikan jeda sedikit agar tidak terjadi looping error yang terlalu cepat
+    setTimeout(() => {
+      playRandomSong();
+    }, 1000);
+  };
+
+  function playRandomSong() {
+    if (config && config.musicList && config.musicList.length > 0) {
+      let currentSrc = music.src;
+      let newSong = currentSrc;
+
+      if (config.musicList.length > 1) {
+        while (newSong === currentSrc) {
+          newSong = config.musicList[Math.floor(Math.random() * config.musicList.length)];
+        }
+      } else {
+        newSong = config.musicList[0];
+      }
+
+      music.src = newSong;
+      music.play().then(() => {
+        globalIsPlaying = true;
+        globalUpdatePauseIcon(true); // Sekarang fungsi ini sudah ada isinya!
+        fadeIn(music, 0.5, 1500);
+      });
     }
   }
 
-  // Assign ke variabel global agar bisa diakses di luar fungsi ini (di DOMContentLoaded)
-  globalUpdatePauseIcon = updatePauseIcon;
-  globalUpdateMuteIcon = updateMuteIcon;
-
-  function autoPlayAfterInteraction() {
-    if (!globalIsPlaying && music) {
-      music.volume = 0.5;
-      music
-        .play()
-        .then(() => {
-          globalIsPlaying = true;
-          updatePauseIcon(true);
-          updateMuteIcon(music.muted);
-        })
-        .catch((error) => {
-          console.log('Autoplay diblokir:', error);
-          updatePauseIcon(false);
-        });
-      // Hapus listener setelah interaksi pertama
-      document.removeEventListener('click', autoPlayAfterInteraction, true);
-      document.removeEventListener('touchstart', autoPlayAfterInteraction, true);
-    }
-  }
-
-  // 1. Initial interaction listener for Autoplay (Click/Touch)
-  document.addEventListener('click', autoPlayAfterInteraction, {
-    once: true,
-    capture: true,
-  });
-  document.addEventListener('touchstart', autoPlayAfterInteraction, {
-    once: true,
-    capture: true,
-  });
-
-  // 2. Play/Pause Listener
+  // Listener Play/Pause
   pauseButton.addEventListener('click', (e) => {
     e.stopPropagation();
     if (music.paused) {
-      music
-        .play()
-        .then(() => {
-          globalIsPlaying = true;
-          updatePauseIcon(true);
-        })
-        .catch((error) => {
-          console.error('Music play failed on click:', error);
-          updatePauseIcon(false);
-        });
+      music.play().then(() => {
+        globalIsPlaying = true;
+        globalUpdatePauseIcon(true);
+      });
     } else {
       music.pause();
       globalIsPlaying = false;
-      updatePauseIcon(false);
+      globalUpdatePauseIcon(false);
     }
   });
 
-  // 3. Mute/Unmute Listener
-  muteButton.addEventListener('click', (e) => {
+  // Listener Next
+  nextButton.addEventListener('click', (e) => {
     e.stopPropagation();
-    music.muted = !music.muted;
-    updateMuteIcon(music.muted);
+    playRandomSong();
   });
 
-  // Set Initial state
-  updatePauseIcon(false);
-  updateMuteIcon(music.muted);
+  music.onended = () => playRandomSong();
+
+  if (config && config.musicList) {
+    music.src = config.musicList[Math.floor(Math.random() * config.musicList.length)];
+  }
 }
 
 // ====================================================================
@@ -583,14 +592,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- PERBAIKAN: Memutar musik dan memastikan ikon diperbarui ---
     if (music) {
+      music.volume = 0; // Mulai dari nol
       music
         .play()
         .then(() => {
-          // Hanya jika pemutaran berhasil, perbarui status dan ikon
           globalIsPlaying = true;
           if (globalUpdatePauseIcon) {
             globalUpdatePauseIcon(true);
           }
+          // Panggil efek fade in selama 2 detik
+          fadeIn(music, 0.5, 2000);
         })
         .catch((e) => console.error('Music play blocked:', e));
     }

@@ -1,6 +1,10 @@
 export const UNDANGAN_CONFIG = {
   guestNameDefault: 'Tamu Undangan',
-  musicUrl: 'https://assets.aethersub.store/music/Nadine-Hamizah-AH.mp3',
+  musicList: [
+    'https://assets.aethersub.store/music/Nadine-Hamizah-AH.mp3',
+    'https://assets.aethersub.store/music/The Way You Look At Me.mp3',
+    'https://assets.aethersub.store/music/Anything You Want.mp3',
+  ],
 
   // Nama Mempelai
   brideName: 'Tia',
@@ -61,11 +65,10 @@ export const UNDANGAN_CONFIG = {
   mapsIframeUrl:
     'https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d1184.2778167850392!2d109.3764659268553!3d-7.153596896371059!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e1!3m2!1sid!2sid!4v1764042119400!5m2!1sid!2sid',
   locationName: 'Dk.Klesem Gunung Jaya',
-  locationFullAddress:
-    'Dk Klesem, RT25/08, GunungJaya, Belik, Pemalang, Jawa Tengah',
+  locationFullAddress: 'Dk Klesem, RT25/08, GunungJaya, Belik, Pemalang, Jawa Tengah',
 
   sponsors: [
     'https://assets.aethersub.store/images/aethersub.png',
     'https://assets.aethersub.store/images/cloudflare.png',
   ],
-}
+};

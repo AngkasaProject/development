@@ -59,12 +59,12 @@ const pageTitle = `The Wedding of ${UNDANGAN_CONFIG.brideName} & ${UNDANGAN_CONF
       </div>
     </div>
   </div>
-
+  <script is:inline define:vars={{ UNDANGAN_CONFIG }}>
+    window.UNDANGAN_CONFIG = UNDANGAN_CONFIG;
+  </script>
   <Preloader />
 
-  <audio id="background-music" loop preload="auto">
-    <source src={UNDANGAN_CONFIG.musicUrl} type="audio/mp3" />
-  </audio>
+  <audio id="background-music" preload="auto"></audio>
 
   <div id="fullscreen-container" class="relative">
     <Cover />
@@ -83,14 +83,12 @@ const pageTitle = `The Wedding of ${UNDANGAN_CONFIG.brideName} & ${UNDANGAN_CONF
           <i id="pause-icon" class="fas fa-pause text-xl"></i>
         </button>
 
-        <!-- 2. Mute/Unmute Button -->
         <button
-          id="music-mute-button"
+          id="music-next-button"
           class="btn-float nav-blur text-white hover:bg-gray-500"
-          aria-label="Toggle Mute"
+          aria-label="Next Song"
         >
-          <!-- Ikon Volume Up -->
-          <i id="mute-icon" class="fas fa-volume-up text-xl"></i>
+          <i id="next-icon" class="fas fa-step-forward text-xl"></i>
         </button>
       </div>
       <!-- End- Music Control -->
